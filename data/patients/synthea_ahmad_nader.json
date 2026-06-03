@@ -1,0 +1,137 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "8799a4b0-1815-4963-a0da-cb91757a7692",
+        "name": [
+          {
+            "use": "official",
+            "family": "Nader",
+            "given": [
+              "Ahmad"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1991-04-21",
+        "address": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/geolocation",
+                "extension": [
+                  {
+                    "url": "latitude",
+                    "valueDecimal": 42.35176733486442
+                  },
+                  {
+                    "url": "longitude",
+                    "valueDecimal": -70.98597530659111
+                  }
+                ]
+              }
+            ],
+            "line": [
+              "323 Bernhard Spur"
+            ],
+            "city": "Boston",
+            "state": "Massachusetts",
+            "postalCode": "02108",
+            "country": "US"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-8799a4b0-1815-4963-a0da-cb91757a7692",
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "HMO"
+            }
+          ]
+        },
+        "subscriberId": "SYN8799A4B0",
+        "beneficiary": {
+          "reference": "Patient/8799a4b0-1815-4963-a0da-cb91757a7692"
+        },
+        "payor": [
+          {
+            "display": "Medicaid"
+          }
+        ],
+        "class": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "code": "plan"
+                }
+              ]
+            },
+            "name": "Medicaid HMO"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-8799a4b0-1815-4963-a0da-cb91757a7692-0",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "74400008",
+              "display": "Appendicitis"
+            }
+          ],
+          "text": "Appendicitis"
+        },
+        "subject": {
+          "reference": "Patient/8799a4b0-1815-4963-a0da-cb91757a7692"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-8799a4b0-1815-4963-a0da-cb91757a7692-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "428251008",
+              "display": "History of appendectomy"
+            }
+          ],
+          "text": "History of appendectomy"
+        },
+        "subject": {
+          "reference": "Patient/8799a4b0-1815-4963-a0da-cb91757a7692"
+        }
+      }
+    }
+  ]
+}

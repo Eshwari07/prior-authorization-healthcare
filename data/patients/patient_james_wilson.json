@@ -1,0 +1,39 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "james-wilson-0004",
+        "name": [{"use": "official", "family": "Wilson", "given": ["James", "Andrew"]}],
+        "gender": "male",
+        "birthDate": "1985-11-30",
+        "address": [{"city": "Cambridge", "state": "Massachusetts", "country": "US"}]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-james-0004",
+        "status": "cancelled",
+        "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode", "code": "PPO", "display": "preferred provider organization policy"}]},
+        "subscriberId": "UHC44820917",
+        "beneficiary": {"reference": "Patient/james-wilson-0004"},
+        "period": {"start": "2021-01-01", "end": "2024-01-15"},
+        "payor": [{"display": "UnitedHealthcare"}],
+        "class": [{"type": {"coding": [{"code": "plan"}]}, "value": "PPO Choice", "name": "UnitedHealthcare PPO Choice"}]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-james-0001",
+        "clinicalStatus": {"coding": [{"code": "active"}]},
+        "code": {"coding": [{"system": "http://hl7.org/fhir/sid/icd-10-cm", "code": "G43.909", "display": "Migraine, unspecified, not intractable, without status migrainosus"}], "text": "Chronic migraine"},
+        "subject": {"reference": "Patient/james-wilson-0004"},
+        "onsetDateTime": "2022-08-14"
+      }
+    }
+  ]
+}

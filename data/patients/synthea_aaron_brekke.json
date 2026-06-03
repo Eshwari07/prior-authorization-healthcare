@@ -1,0 +1,215 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "5cbc121b-cd71-4428-b8b7-31e53eba8184",
+        "name": [
+          {
+            "use": "official",
+            "family": "Brekke",
+            "given": [
+              "Aaron"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1945-12-10",
+        "address": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/geolocation",
+                "extension": [
+                  {
+                    "url": "latitude",
+                    "valueDecimal": 41.93879298871088
+                  },
+                  {
+                    "url": "longitude",
+                    "valueDecimal": -71.06682353144593
+                  }
+                ]
+              }
+            ],
+            "line": [
+              "894 Brakus Bypass"
+            ],
+            "city": "Taunton",
+            "state": "Massachusetts",
+            "postalCode": "02718",
+            "country": "US"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-5cbc121b-cd71-4428-b8b7-31e53eba8184",
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "PPO"
+            }
+          ]
+        },
+        "subscriberId": "SYN5CBC121B",
+        "beneficiary": {
+          "reference": "Patient/5cbc121b-cd71-4428-b8b7-31e53eba8184"
+        },
+        "payor": [
+          {
+            "display": "Humana"
+          }
+        ],
+        "class": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "code": "plan"
+                }
+              ]
+            },
+            "name": "Humana PPO"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-5cbc121b-cd71-4428-b8b7-31e53eba8184-0",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "410429000",
+              "display": "Cardiac Arrest"
+            }
+          ],
+          "text": "Cardiac Arrest"
+        },
+        "subject": {
+          "reference": "Patient/5cbc121b-cd71-4428-b8b7-31e53eba8184"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-5cbc121b-cd71-4428-b8b7-31e53eba8184-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "429007001",
+              "display": "History of cardiac arrest (situation)"
+            }
+          ],
+          "text": "History of cardiac arrest (situation)"
+        },
+        "subject": {
+          "reference": "Patient/5cbc121b-cd71-4428-b8b7-31e53eba8184"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-5cbc121b-cd71-4428-b8b7-31e53eba8184-2",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "162864005",
+              "display": "Body mass index 30+ - obesity (finding)"
+            }
+          ],
+          "text": "Body mass index 30+ - obesity (finding)"
+        },
+        "subject": {
+          "reference": "Patient/5cbc121b-cd71-4428-b8b7-31e53eba8184"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-5cbc121b-cd71-4428-b8b7-31e53eba8184-3",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "15777000",
+              "display": "Prediabetes"
+            }
+          ],
+          "text": "Prediabetes"
+        },
+        "subject": {
+          "reference": "Patient/5cbc121b-cd71-4428-b8b7-31e53eba8184"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-5cbc121b-cd71-4428-b8b7-31e53eba8184-4",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "271737000",
+              "display": "Anemia (disorder)"
+            }
+          ],
+          "text": "Anemia (disorder)"
+        },
+        "subject": {
+          "reference": "Patient/5cbc121b-cd71-4428-b8b7-31e53eba8184"
+        }
+      }
+    }
+  ]
+}

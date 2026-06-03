@@ -1,0 +1,54 @@
+{
+  "_description": "Prior authorization requirement rules. Maps procedure categories and specific codes to PA requirements by plan type. Modeled on common US commercial payer policies (e.g. advanced imaging, elective surgery, specialty drugs typically require PA; routine PT/preventive often do not). Used by the Eligibility agent to decide if PA is needed and by the mock payer for coverage rules.",
+  "pa_required_categories": [
+    "Advanced Imaging",
+    "Cardiac",
+    "Orthopedic Surgery",
+    "Spine Surgery",
+    "Pain Management",
+    "Oncology Surgery",
+    "Gynecologic Surgery",
+    "Urologic Surgery",
+    "Specialty Drug",
+    "Durable Medical Equipment",
+    "Sleep Medicine"
+  ],
+  "no_pa_categories": [
+    "Physical Therapy",
+    "Preventive Imaging",
+    "GI Procedures",
+    "General Surgery",
+    "Ophthalmology"
+  ],
+  "plan_overrides": {
+    "HMO": {
+      "_note": "HMO plans require PA for everything in pa_required_categories plus GI Procedures and General Surgery",
+      "additional_pa_categories": ["GI Procedures", "General Surgery"]
+    },
+    "PPO": {
+      "_note": "PPO plans are more permissive; Ophthalmology and Preventive Imaging never require PA",
+      "additional_pa_categories": []
+    },
+    "EPO": {
+      "additional_pa_categories": ["GI Procedures"]
+    },
+    "POS": {
+      "additional_pa_categories": []
+    }
+  },
+  "covered_procedures_by_insurer": {
+    "_description": "Procedures NOT in an insurer's covered list are denied PR-96 (plan exclusion) by the mock payer. Empty list means all procedures covered.",
+    "Aetna": [],
+    "Cigna": [],
+    "Humana": [],
+    "UnitedHealthcare": [],
+    "Blue Cross Blue Shield": [],
+    "Medicare": ["J0178", "J2778"],
+    "Medicaid": []
+  },
+  "non_covered_examples": {
+    "_description": "Specific (insurer, code) pairs that are explicitly excluded to demonstrate PR-96 denials and appeal-letter generation.",
+    "Medicare": ["55866", "58571"],
+    "Medicaid": ["66984"]
+  }
+}

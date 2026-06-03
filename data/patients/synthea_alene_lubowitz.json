@@ -1,0 +1,241 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "f63efb83-1566-4865-a251-fdc4d5fa4f6b",
+        "name": [
+          {
+            "use": "official",
+            "family": "Lubowitz",
+            "given": [
+              "Alene"
+            ]
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1978-03-12",
+        "address": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/geolocation",
+                "extension": [
+                  {
+                    "url": "latitude",
+                    "valueDecimal": 42.51377818949048
+                  },
+                  {
+                    "url": "longitude",
+                    "valueDecimal": -71.10686498517025
+                  }
+                ]
+              }
+            ],
+            "line": [
+              "106 Kozey Mill Apt 4"
+            ],
+            "city": "Woburn",
+            "state": "Massachusetts",
+            "postalCode": "01801",
+            "country": "US"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-f63efb83-1566-4865-a251-fdc4d5fa4f6b",
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "PPO"
+            }
+          ]
+        },
+        "subscriberId": "SYNF63EFB83",
+        "beneficiary": {
+          "reference": "Patient/f63efb83-1566-4865-a251-fdc4d5fa4f6b"
+        },
+        "payor": [
+          {
+            "display": "Aetna"
+          }
+        ],
+        "class": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "code": "plan"
+                }
+              ]
+            },
+            "name": "Aetna PPO"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-f63efb83-1566-4865-a251-fdc4d5fa4f6b-0",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "124171000119105",
+              "display": "Chronic intractable migraine without aura"
+            }
+          ],
+          "text": "Chronic intractable migraine without aura"
+        },
+        "subject": {
+          "reference": "Patient/f63efb83-1566-4865-a251-fdc4d5fa4f6b"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-f63efb83-1566-4865-a251-fdc4d5fa4f6b-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "82423001",
+              "display": "Chronic pain"
+            }
+          ],
+          "text": "Chronic pain"
+        },
+        "subject": {
+          "reference": "Patient/f63efb83-1566-4865-a251-fdc4d5fa4f6b"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-f63efb83-1566-4865-a251-fdc4d5fa4f6b-2",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "196416002",
+              "display": "Impacted molars"
+            }
+          ],
+          "text": "Impacted molars"
+        },
+        "subject": {
+          "reference": "Patient/f63efb83-1566-4865-a251-fdc4d5fa4f6b"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-f63efb83-1566-4865-a251-fdc4d5fa4f6b-3",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "55680006",
+              "display": "Drug overdose"
+            }
+          ],
+          "text": "Drug overdose"
+        },
+        "subject": {
+          "reference": "Patient/f63efb83-1566-4865-a251-fdc4d5fa4f6b"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-f63efb83-1566-4865-a251-fdc4d5fa4f6b-4",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "19169002",
+              "display": "Miscarriage in first trimester"
+            }
+          ],
+          "text": "Miscarriage in first trimester"
+        },
+        "subject": {
+          "reference": "Patient/f63efb83-1566-4865-a251-fdc4d5fa4f6b"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-f63efb83-1566-4865-a251-fdc4d5fa4f6b-5",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "162864005",
+              "display": "Body mass index 30+ - obesity (finding)"
+            }
+          ],
+          "text": "Body mass index 30+ - obesity (finding)"
+        },
+        "subject": {
+          "reference": "Patient/f63efb83-1566-4865-a251-fdc4d5fa4f6b"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "maria-garcia-0003",
+        "name": [{"use": "official", "family": "Garcia", "given": ["Maria", "Isabel"]}],
+        "gender": "female",
+        "birthDate": "1951-02-08",
+        "address": [{"city": "Springfield", "state": "Massachusetts", "country": "US"}]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-maria-0003",
+        "status": "active",
+        "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode", "code": "HMO", "display": "health maintenance organization policy"}]},
+        "subscriberId": "MCR90283745",
+        "beneficiary": {"reference": "Patient/maria-garcia-0003"},
+        "period": {"start": "2016-03-01", "end": "2026-12-31"},
+        "payor": [{"display": "Medicare"}],
+        "class": [{"type": {"coding": [{"code": "plan"}]}, "value": "Medicare Advantage", "name": "Medicare Advantage HMO"}]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-maria-0001",
+        "clinicalStatus": {"coding": [{"code": "active"}]},
+        "code": {"coding": [{"system": "http://hl7.org/fhir/sid/icd-10-cm", "code": "D25.9", "display": "Leiomyoma of uterus, unspecified"}], "text": "Uterine fibroids"},
+        "subject": {"reference": "Patient/maria-garcia-0003"},
+        "onsetDateTime": "2024-01-30"
+      }
+    }
+  ]
+}

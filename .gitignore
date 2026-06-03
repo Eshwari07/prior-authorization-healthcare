@@ -1,0 +1,31 @@
+# Environment / secrets
+.env
+.env.local
+.streamlit/secrets.toml
+.streamlit/
+
+# Python
+venv/
+__pycache__/
+*.py[cod]
+*.egg-info/
+.pytest_cache/
+.ipynb_checkpoints/
+
+# Embedding model cache (downloaded at runtime)
+.cache/
+models/
+
+# Node / Next.js (frontend/)
+node_modules/
+.next/
+out/
+*.tsbuildinfo
+next-env.d.ts
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Raw downloaded CMS archives (keep parsed outputs only)
+*.zip

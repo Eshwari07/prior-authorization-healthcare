@@ -1,0 +1,136 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "632b7c1c-9545-4aa7-9fd5-07683139ef13",
+        "name": [
+          {
+            "use": "official",
+            "family": "Runte",
+            "given": [
+              "Akiko"
+            ]
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1966-06-14",
+        "address": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/geolocation",
+                "extension": [
+                  {
+                    "url": "latitude",
+                    "valueDecimal": 41.927965308854525
+                  },
+                  {
+                    "url": "longitude",
+                    "valueDecimal": -69.96858537860913
+                  }
+                ]
+              }
+            ],
+            "line": [
+              "1068 Carroll Drive Apt 22"
+            ],
+            "city": "Wellfleet",
+            "state": "Massachusetts",
+            "country": "US"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-632b7c1c-9545-4aa7-9fd5-07683139ef13",
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "PPO"
+            }
+          ]
+        },
+        "subscriberId": "SYN632B7C1C",
+        "beneficiary": {
+          "reference": "Patient/632b7c1c-9545-4aa7-9fd5-07683139ef13"
+        },
+        "payor": [
+          {
+            "display": "UnitedHealthcare"
+          }
+        ],
+        "class": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "code": "plan"
+                }
+              ]
+            },
+            "name": "UnitedHealthcare PPO"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-632b7c1c-9545-4aa7-9fd5-07683139ef13-0",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "19169002",
+              "display": "Miscarriage in first trimester"
+            }
+          ],
+          "text": "Miscarriage in first trimester"
+        },
+        "subject": {
+          "reference": "Patient/632b7c1c-9545-4aa7-9fd5-07683139ef13"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-632b7c1c-9545-4aa7-9fd5-07683139ef13-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "162864005",
+              "display": "Body mass index 30+ - obesity (finding)"
+            }
+          ],
+          "text": "Body mass index 30+ - obesity (finding)"
+        },
+        "subject": {
+          "reference": "Patient/632b7c1c-9545-4aa7-9fd5-07683139ef13"
+        }
+      }
+    }
+  ]
+}

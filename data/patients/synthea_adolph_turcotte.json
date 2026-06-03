@@ -1,0 +1,110 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "5dc02d13-5c69-4c36-87d5-16738f088300",
+        "name": [
+          {
+            "use": "official",
+            "family": "Turcotte",
+            "given": [
+              "Adolph"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1996-12-04",
+        "address": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/geolocation",
+                "extension": [
+                  {
+                    "url": "latitude",
+                    "valueDecimal": 42.36738696115983
+                  },
+                  {
+                    "url": "longitude",
+                    "valueDecimal": -72.43774108962852
+                  }
+                ]
+              }
+            ],
+            "line": [
+              "217 Will Spur Suite 31"
+            ],
+            "city": "Amherst",
+            "state": "Massachusetts",
+            "country": "US"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-5dc02d13-5c69-4c36-87d5-16738f088300",
+        "status": "cancelled",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "PPO"
+            }
+          ]
+        },
+        "subscriberId": "SYN5DC02D13",
+        "beneficiary": {
+          "reference": "Patient/5dc02d13-5c69-4c36-87d5-16738f088300"
+        },
+        "payor": [
+          {
+            "display": "None"
+          }
+        ],
+        "class": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "code": "plan"
+                }
+              ]
+            },
+            "name": "Uninsured"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-5dc02d13-5c69-4c36-87d5-16738f088300-0",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "59621000",
+              "display": "Hypertension"
+            }
+          ],
+          "text": "Hypertension"
+        },
+        "subject": {
+          "reference": "Patient/5dc02d13-5c69-4c36-87d5-16738f088300"
+        }
+      }
+    }
+  ]
+}

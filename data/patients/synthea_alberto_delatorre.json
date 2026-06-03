@@ -1,0 +1,162 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "763b6101-133a-44bb-ac60-3c097d6c0ba1",
+        "name": [
+          {
+            "use": "official",
+            "family": "Delatorre",
+            "given": [
+              "Alberto"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1942-08-30",
+        "address": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/geolocation",
+                "extension": [
+                  {
+                    "url": "latitude",
+                    "valueDecimal": 42.61040460402259
+                  },
+                  {
+                    "url": "longitude",
+                    "valueDecimal": -70.79276149020694
+                  }
+                ]
+              }
+            ],
+            "line": [
+              "316 Upton Hollow Unit 62"
+            ],
+            "city": "Wenham",
+            "state": "Massachusetts",
+            "country": "US"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-763b6101-133a-44bb-ac60-3c097d6c0ba1",
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "PPO"
+            }
+          ]
+        },
+        "subscriberId": "SYN763B6101",
+        "beneficiary": {
+          "reference": "Patient/763b6101-133a-44bb-ac60-3c097d6c0ba1"
+        },
+        "payor": [
+          {
+            "display": "UnitedHealthcare"
+          }
+        ],
+        "class": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "code": "plan"
+                }
+              ]
+            },
+            "name": "UnitedHealthcare PPO"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-763b6101-133a-44bb-ac60-3c097d6c0ba1-0",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "59621000",
+              "display": "Hypertension"
+            }
+          ],
+          "text": "Hypertension"
+        },
+        "subject": {
+          "reference": "Patient/763b6101-133a-44bb-ac60-3c097d6c0ba1"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-763b6101-133a-44bb-ac60-3c097d6c0ba1-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "162864005",
+              "display": "Body mass index 30+ - obesity (finding)"
+            }
+          ],
+          "text": "Body mass index 30+ - obesity (finding)"
+        },
+        "subject": {
+          "reference": "Patient/763b6101-133a-44bb-ac60-3c097d6c0ba1"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-763b6101-133a-44bb-ac60-3c097d6c0ba1-2",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "230690007",
+              "display": "Stroke"
+            }
+          ],
+          "text": "Stroke"
+        },
+        "subject": {
+          "reference": "Patient/763b6101-133a-44bb-ac60-3c097d6c0ba1"
+        }
+      }
+    }
+  ]
+}

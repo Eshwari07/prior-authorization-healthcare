@@ -1,0 +1,61 @@
+code,description,category,typical_modifiers
+70551,MRI brain without contrast,Advanced Imaging,
+70553,MRI brain without and with contrast,Advanced Imaging,
+72141,MRI cervical spine without contrast,Advanced Imaging,
+72146,MRI thoracic spine without contrast,Advanced Imaging,
+72148,MRI lumbar spine without contrast,Advanced Imaging,
+72149,MRI lumbar spine with contrast,Advanced Imaging,
+72158,MRI lumbar spine without and with contrast,Advanced Imaging,
+73721,MRI lower extremity joint without contrast,Advanced Imaging,
+73221,MRI upper extremity joint without contrast,Advanced Imaging,
+70450,CT head without contrast,Advanced Imaging,
+70486,CT maxillofacial without contrast,Advanced Imaging,
+71250,CT thorax without contrast,Advanced Imaging,
+71260,CT thorax with contrast,Advanced Imaging,
+74176,CT abdomen and pelvis without contrast,Advanced Imaging,
+74177,CT abdomen and pelvis with contrast,Advanced Imaging,
+72192,CT pelvis without contrast,Advanced Imaging,
+72193,CT pelvis with contrast,Advanced Imaging,
+78815,PET/CT skull base to mid-thigh,Advanced Imaging,
+78306,Bone scan whole body,Advanced Imaging,
+93306,Echocardiography transthoracic complete,Cardiac,
+93458,Cardiac catheterization left heart,Cardiac,26;TC
+75571,CT heart coronary calcium scoring,Cardiac,
+27447,Total knee arthroplasty,Orthopedic Surgery,LT;RT
+27130,Total hip arthroplasty,Orthopedic Surgery,LT;RT
+29881,Knee arthroscopy with meniscectomy,Orthopedic Surgery,LT;RT;59
+29827,Shoulder arthroscopy rotator cuff repair,Orthopedic Surgery,LT;RT
+22551,Cervical spine fusion anterior,Spine Surgery,
+22612,Lumbar spine fusion posterior,Spine Surgery,
+63030,Lumbar laminotomy single,Spine Surgery,LT;RT
+63047,Lumbar laminectomy decompression,Spine Surgery,
+64483,Transforaminal epidural injection lumbar,Pain Management,LT;RT
+64635,Radiofrequency ablation lumbar facet,Pain Management,LT;RT
+62323,Epidural injection lumbar with imaging,Pain Management,
+43239,Upper GI endoscopy with biopsy,GI Procedures,
+45380,Colonoscopy with biopsy,GI Procedures,
+45385,Colonoscopy with lesion removal,GI Procedures,
+47562,Laparoscopic cholecystectomy,General Surgery,
+44970,Laparoscopic appendectomy,General Surgery,
+49505,Inguinal hernia repair,General Surgery,LT;RT
+19303,Mastectomy total,Oncology Surgery,LT;RT
+58571,Laparoscopic total hysterectomy,Gynecologic Surgery,
+55866,Laparoscopic radical prostatectomy,Urologic Surgery,
+50590,Lithotripsy kidney stone,Urologic Surgery,LT;RT
+66984,Cataract surgery with intraocular lens,Ophthalmology,LT;RT
+67028,Intravitreal injection,Ophthalmology,LT;RT
+J0178,Aflibercept injection 1mg,Specialty Drug,
+J2778,Ranibizumab injection 0.1mg,Specialty Drug,
+J9035,Bevacizumab injection 10mg,Specialty Drug,
+J1745,Infliximab injection 10mg,Specialty Drug,
+J3380,Vedolizumab injection 1mg,Specialty Drug,
+J0517,Benralizumab injection 1mg,Specialty Drug,
+E0601,Continuous positive airway pressure device,Durable Medical Equipment,
+E0470,Respiratory assist device bilevel,Durable Medical Equipment,
+E1390,Oxygen concentrator,Durable Medical Equipment,
+K0856,Power wheelchair group 3,Durable Medical Equipment,
+E0260,Hospital bed semi-electric,Durable Medical Equipment,
+97110,Therapeutic exercise per 15 min,Physical Therapy,
+97140,Manual therapy per 15 min,Physical Therapy,
+95810,Polysomnography sleep study,Sleep Medicine,
+G0297,Low dose CT lung cancer screening,Preventive Imaging,

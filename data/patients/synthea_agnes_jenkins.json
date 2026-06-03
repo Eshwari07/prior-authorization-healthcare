@@ -1,0 +1,162 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "25cc2755-9643-43a9-837c-f79c04ad8916",
+        "name": [
+          {
+            "use": "official",
+            "family": "Jenkins",
+            "given": [
+              "Agnes"
+            ]
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1997-08-08",
+        "address": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/geolocation",
+                "extension": [
+                  {
+                    "url": "latitude",
+                    "valueDecimal": 42.606935551064886
+                  },
+                  {
+                    "url": "longitude",
+                    "valueDecimal": -71.40952179137622
+                  }
+                ]
+              }
+            ],
+            "line": [
+              "802 Pfannerstill Skyway"
+            ],
+            "city": "Westford",
+            "state": "Massachusetts",
+            "country": "US"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-25cc2755-9643-43a9-837c-f79c04ad8916",
+        "status": "cancelled",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "PPO"
+            }
+          ]
+        },
+        "subscriberId": "SYN25CC2755",
+        "beneficiary": {
+          "reference": "Patient/25cc2755-9643-43a9-837c-f79c04ad8916"
+        },
+        "payor": [
+          {
+            "display": "None"
+          }
+        ],
+        "class": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "code": "plan"
+                }
+              ]
+            },
+            "name": "Uninsured"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-25cc2755-9643-43a9-837c-f79c04ad8916-0",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "40055000",
+              "display": "Chronic sinusitis (disorder)"
+            }
+          ],
+          "text": "Chronic sinusitis (disorder)"
+        },
+        "subject": {
+          "reference": "Patient/25cc2755-9643-43a9-837c-f79c04ad8916"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-25cc2755-9643-43a9-837c-f79c04ad8916-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "44054006",
+              "display": "Diabetes"
+            }
+          ],
+          "text": "Diabetes"
+        },
+        "subject": {
+          "reference": "Patient/25cc2755-9643-43a9-837c-f79c04ad8916"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-25cc2755-9643-43a9-837c-f79c04ad8916-2",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "59621000",
+              "display": "Hypertension"
+            }
+          ],
+          "text": "Hypertension"
+        },
+        "subject": {
+          "reference": "Patient/25cc2755-9643-43a9-837c-f79c04ad8916"
+        }
+      }
+    }
+  ]
+}

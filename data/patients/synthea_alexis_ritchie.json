@@ -1,0 +1,162 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "2d5e18ff-c50e-4ddc-9391-98670c64f72c",
+        "name": [
+          {
+            "use": "official",
+            "family": "Ritchie",
+            "given": [
+              "Alexis"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "2003-04-07",
+        "address": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/geolocation",
+                "extension": [
+                  {
+                    "url": "latitude",
+                    "valueDecimal": 42.33264679798641
+                  },
+                  {
+                    "url": "longitude",
+                    "valueDecimal": -71.67143896604229
+                  }
+                ]
+              }
+            ],
+            "line": [
+              "560 Renner Terrace"
+            ],
+            "city": "Shrewsbury",
+            "state": "Massachusetts",
+            "country": "US"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-2d5e18ff-c50e-4ddc-9391-98670c64f72c",
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "PPO"
+            }
+          ]
+        },
+        "subscriberId": "SYN2D5E18FF",
+        "beneficiary": {
+          "reference": "Patient/2d5e18ff-c50e-4ddc-9391-98670c64f72c"
+        },
+        "payor": [
+          {
+            "display": "Cigna Health"
+          }
+        ],
+        "class": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "code": "plan"
+                }
+              ]
+            },
+            "name": "Cigna Health PPO"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-2d5e18ff-c50e-4ddc-9391-98670c64f72c-0",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "446096008",
+              "display": "Perennial allergic rhinitis"
+            }
+          ],
+          "text": "Perennial allergic rhinitis"
+        },
+        "subject": {
+          "reference": "Patient/2d5e18ff-c50e-4ddc-9391-98670c64f72c"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-2d5e18ff-c50e-4ddc-9391-98670c64f72c-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "74400008",
+              "display": "Appendicitis"
+            }
+          ],
+          "text": "Appendicitis"
+        },
+        "subject": {
+          "reference": "Patient/2d5e18ff-c50e-4ddc-9391-98670c64f72c"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-2d5e18ff-c50e-4ddc-9391-98670c64f72c-2",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "428251008",
+              "display": "History of appendectomy"
+            }
+          ],
+          "text": "History of appendectomy"
+        },
+        "subject": {
+          "reference": "Patient/2d5e18ff-c50e-4ddc-9391-98670c64f72c"
+        }
+      }
+    }
+  ]
+}

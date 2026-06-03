@@ -1,0 +1,111 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "b426b062-8273-4b93-a907-de3176c0567d",
+        "name": [
+          {
+            "use": "official",
+            "family": "Heller",
+            "given": [
+              "Abraham"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "2002-04-15",
+        "address": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/geolocation",
+                "extension": [
+                  {
+                    "url": "latitude",
+                    "valueDecimal": 42.410027249980345
+                  },
+                  {
+                    "url": "longitude",
+                    "valueDecimal": -71.07762136029856
+                  }
+                ]
+              }
+            ],
+            "line": [
+              "834 Hansen Run"
+            ],
+            "city": "Somerville",
+            "state": "Massachusetts",
+            "postalCode": "02138",
+            "country": "US"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-b426b062-8273-4b93-a907-de3176c0567d",
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "PPO"
+            }
+          ]
+        },
+        "subscriberId": "SYNB426B062",
+        "beneficiary": {
+          "reference": "Patient/b426b062-8273-4b93-a907-de3176c0567d"
+        },
+        "payor": [
+          {
+            "display": "Aetna"
+          }
+        ],
+        "class": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "code": "plan"
+                }
+              ]
+            },
+            "name": "Aetna PPO"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-b426b062-8273-4b93-a907-de3176c0567d-0",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "162864005",
+              "display": "Body mass index 30+ - obesity (finding)"
+            }
+          ],
+          "text": "Body mass index 30+ - obesity (finding)"
+        },
+        "subject": {
+          "reference": "Patient/b426b062-8273-4b93-a907-de3176c0567d"
+        }
+      }
+    }
+  ]
+}

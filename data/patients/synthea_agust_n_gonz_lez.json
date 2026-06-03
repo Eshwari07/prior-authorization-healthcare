@@ -1,0 +1,189 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "6d6fec2a-b149-49c1-b669-4b7106a7aa72",
+        "name": [
+          {
+            "use": "official",
+            "family": "Gonz\u00e1lez",
+            "given": [
+              "Agust\u00edn"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1969-12-26",
+        "address": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/geolocation",
+                "extension": [
+                  {
+                    "url": "latitude",
+                    "valueDecimal": 42.316450147303804
+                  },
+                  {
+                    "url": "longitude",
+                    "valueDecimal": -71.77346575169751
+                  }
+                ]
+              }
+            ],
+            "line": [
+              "176 Walsh Course Suite 77"
+            ],
+            "city": "Worcester",
+            "state": "Massachusetts",
+            "postalCode": "01545",
+            "country": "US"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-6d6fec2a-b149-49c1-b669-4b7106a7aa72",
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "PPO"
+            }
+          ]
+        },
+        "subscriberId": "SYN6D6FEC2A",
+        "beneficiary": {
+          "reference": "Patient/6d6fec2a-b149-49c1-b669-4b7106a7aa72"
+        },
+        "payor": [
+          {
+            "display": "Aetna"
+          }
+        ],
+        "class": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "code": "plan"
+                }
+              ]
+            },
+            "name": "Aetna PPO"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-6d6fec2a-b149-49c1-b669-4b7106a7aa72-0",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "275272006",
+              "display": "Brain damage - traumatic"
+            }
+          ],
+          "text": "Brain damage - traumatic"
+        },
+        "subject": {
+          "reference": "Patient/6d6fec2a-b149-49c1-b669-4b7106a7aa72"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-6d6fec2a-b149-49c1-b669-4b7106a7aa72-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "59621000",
+              "display": "Hypertension"
+            }
+          ],
+          "text": "Hypertension"
+        },
+        "subject": {
+          "reference": "Patient/6d6fec2a-b149-49c1-b669-4b7106a7aa72"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-6d6fec2a-b149-49c1-b669-4b7106a7aa72-2",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "15777000",
+              "display": "Prediabetes"
+            }
+          ],
+          "text": "Prediabetes"
+        },
+        "subject": {
+          "reference": "Patient/6d6fec2a-b149-49c1-b669-4b7106a7aa72"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-6d6fec2a-b149-49c1-b669-4b7106a7aa72-3",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "271737000",
+              "display": "Anemia (disorder)"
+            }
+          ],
+          "text": "Anemia (disorder)"
+        },
+        "subject": {
+          "reference": "Patient/6d6fec2a-b149-49c1-b669-4b7106a7aa72"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "16cd8a89-062b-446f-a1b8-f3b289fc2c4e",
+        "name": [
+          {
+            "use": "official",
+            "family": "Marvin",
+            "given": [
+              "Alfred"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1989-05-25",
+        "address": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/geolocation",
+                "extension": [
+                  {
+                    "url": "latitude",
+                    "valueDecimal": 42.07414665948622
+                  },
+                  {
+                    "url": "longitude",
+                    "valueDecimal": -70.10308505385964
+                  }
+                ]
+              }
+            ],
+            "line": [
+              "1044 Tremblay Rue Unit 65"
+            ],
+            "city": "Provincetown",
+            "state": "Massachusetts",
+            "postalCode": "02657",
+            "country": "US"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-16cd8a89-062b-446f-a1b8-f3b289fc2c4e",
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "HMO"
+            }
+          ]
+        },
+        "subscriberId": "SYN16CD8A89",
+        "beneficiary": {
+          "reference": "Patient/16cd8a89-062b-446f-a1b8-f3b289fc2c4e"
+        },
+        "payor": [
+          {
+            "display": "Medicaid"
+          }
+        ],
+        "class": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "code": "plan"
+                }
+              ]
+            },
+            "name": "Medicaid HMO"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-16cd8a89-062b-446f-a1b8-f3b289fc2c4e-0",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "15777000",
+              "display": "Prediabetes"
+            }
+          ],
+          "text": "Prediabetes"
+        },
+        "subject": {
+          "reference": "Patient/16cd8a89-062b-446f-a1b8-f3b289fc2c4e"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-16cd8a89-062b-446f-a1b8-f3b289fc2c4e-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "271737000",
+              "display": "Anemia (disorder)"
+            }
+          ],
+          "text": "Anemia (disorder)"
+        },
+        "subject": {
+          "reference": "Patient/16cd8a89-062b-446f-a1b8-f3b289fc2c4e"
+        }
+      }
+    }
+  ]
+}

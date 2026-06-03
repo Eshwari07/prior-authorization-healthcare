@@ -1,0 +1,111 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "ad60b8d9-6125-4814-9836-bda34011fe5c",
+        "name": [
+          {
+            "use": "official",
+            "family": "Treutel",
+            "given": [
+              "Alejandro"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1983-10-28",
+        "address": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/geolocation",
+                "extension": [
+                  {
+                    "url": "latitude",
+                    "valueDecimal": 42.386460646224855
+                  },
+                  {
+                    "url": "longitude",
+                    "valueDecimal": -71.0854701294996
+                  }
+                ]
+              }
+            ],
+            "line": [
+              "689 Johnson Esplanade Unit 40"
+            ],
+            "city": "Boston",
+            "state": "Massachusetts",
+            "postalCode": "02108",
+            "country": "US"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-ad60b8d9-6125-4814-9836-bda34011fe5c",
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "PPO"
+            }
+          ]
+        },
+        "subscriberId": "SYNAD60B8D9",
+        "beneficiary": {
+          "reference": "Patient/ad60b8d9-6125-4814-9836-bda34011fe5c"
+        },
+        "payor": [
+          {
+            "display": "Cigna Health"
+          }
+        ],
+        "class": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "code": "plan"
+                }
+              ]
+            },
+            "name": "Cigna Health PPO"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-ad60b8d9-6125-4814-9836-bda34011fe5c-0",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "162864005",
+              "display": "Body mass index 30+ - obesity (finding)"
+            }
+          ],
+          "text": "Body mass index 30+ - obesity (finding)"
+        },
+        "subject": {
+          "reference": "Patient/ad60b8d9-6125-4814-9836-bda34011fe5c"
+        }
+      }
+    }
+  ]
+}

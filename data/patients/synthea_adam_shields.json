@@ -1,0 +1,240 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "346d4b95-5e00-48fe-a21e-076735ca1d74",
+        "name": [
+          {
+            "use": "official",
+            "family": "Shields",
+            "given": [
+              "Adam"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "2001-11-29",
+        "address": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/geolocation",
+                "extension": [
+                  {
+                    "url": "latitude",
+                    "valueDecimal": 42.21109873236621
+                  },
+                  {
+                    "url": "longitude",
+                    "valueDecimal": -72.44451949207823
+                  }
+                ]
+              }
+            ],
+            "line": [
+              "113 Abshire Heights"
+            ],
+            "city": "Ludlow",
+            "state": "Massachusetts",
+            "country": "US"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-346d4b95-5e00-48fe-a21e-076735ca1d74",
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "PPO"
+            }
+          ]
+        },
+        "subscriberId": "SYN346D4B95",
+        "beneficiary": {
+          "reference": "Patient/346d4b95-5e00-48fe-a21e-076735ca1d74"
+        },
+        "payor": [
+          {
+            "display": "Aetna"
+          }
+        ],
+        "class": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "code": "plan"
+                }
+              ]
+            },
+            "name": "Aetna PPO"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-346d4b95-5e00-48fe-a21e-076735ca1d74-0",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "446096008",
+              "display": "Perennial allergic rhinitis"
+            }
+          ],
+          "text": "Perennial allergic rhinitis"
+        },
+        "subject": {
+          "reference": "Patient/346d4b95-5e00-48fe-a21e-076735ca1d74"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-346d4b95-5e00-48fe-a21e-076735ca1d74-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "192127007",
+              "display": "Child attention deficit disorder"
+            }
+          ],
+          "text": "Child attention deficit disorder"
+        },
+        "subject": {
+          "reference": "Patient/346d4b95-5e00-48fe-a21e-076735ca1d74"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-346d4b95-5e00-48fe-a21e-076735ca1d74-2",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "128613002",
+              "display": "Seizure disorder"
+            }
+          ],
+          "text": "Seizure disorder"
+        },
+        "subject": {
+          "reference": "Patient/346d4b95-5e00-48fe-a21e-076735ca1d74"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-346d4b95-5e00-48fe-a21e-076735ca1d74-3",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "703151001",
+              "display": "History of single seizure (situation)"
+            }
+          ],
+          "text": "History of single seizure (situation)"
+        },
+        "subject": {
+          "reference": "Patient/346d4b95-5e00-48fe-a21e-076735ca1d74"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-346d4b95-5e00-48fe-a21e-076735ca1d74-4",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "84757009",
+              "display": "Epilepsy"
+            }
+          ],
+          "text": "Epilepsy"
+        },
+        "subject": {
+          "reference": "Patient/346d4b95-5e00-48fe-a21e-076735ca1d74"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-346d4b95-5e00-48fe-a21e-076735ca1d74-5",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "162864005",
+              "display": "Body mass index 30+ - obesity (finding)"
+            }
+          ],
+          "text": "Body mass index 30+ - obesity (finding)"
+        },
+        "subject": {
+          "reference": "Patient/346d4b95-5e00-48fe-a21e-076735ca1d74"
+        }
+      }
+    }
+  ]
+}

@@ -1,0 +1,58 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "jane-doe-0001",
+        "name": [{"use": "official", "family": "Doe", "given": ["Jane", "Elizabeth"]}],
+        "gender": "female",
+        "birthDate": "1978-04-12",
+        "address": [{"city": "Boston", "state": "Massachusetts", "country": "US"}]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-jane-0001",
+        "status": "active",
+        "type": {"coding": [{"system": "http://terminology.hl7.org/CodeSystem/v3-ActCode", "code": "PPO", "display": "preferred provider organization policy"}]},
+        "subscriberId": "AET78451209",
+        "beneficiary": {"reference": "Patient/jane-doe-0001"},
+        "period": {"start": "2022-01-01", "end": "2026-12-31"},
+        "payor": [{"display": "Aetna"}],
+        "class": [{"type": {"coding": [{"code": "plan"}]}, "value": "PPO Gold", "name": "Aetna PPO Gold"}]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-jane-0001",
+        "clinicalStatus": {"coding": [{"code": "active"}]},
+        "code": {"coding": [{"system": "http://hl7.org/fhir/sid/icd-10-cm", "code": "M51.16", "display": "Intervertebral disc degeneration, lumbar region"}], "text": "Lumbar intervertebral disc degeneration"},
+        "subject": {"reference": "Patient/jane-doe-0001"},
+        "onsetDateTime": "2023-06-15"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-jane-0002",
+        "clinicalStatus": {"coding": [{"code": "active"}]},
+        "code": {"coding": [{"system": "http://hl7.org/fhir/sid/icd-10-cm", "code": "M54.5", "display": "Low back pain"}], "text": "Chronic low back pain"},
+        "subject": {"reference": "Patient/jane-doe-0001"},
+        "onsetDateTime": "2023-03-01"
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "MedicationRequest",
+        "id": "med-jane-0001",
+        "status": "active",
+        "medicationCodeableConcept": {"text": "Ibuprofen 800mg"},
+        "subject": {"reference": "Patient/jane-doe-0001"}
+      }
+    }
+  ]
+}

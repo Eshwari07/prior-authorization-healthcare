@@ -1,0 +1,110 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "67816396-e325-496d-a6ec-c047756b7ce4",
+        "name": [
+          {
+            "use": "official",
+            "family": "Connelly",
+            "given": [
+              "Abel"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1999-12-12",
+        "address": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/geolocation",
+                "extension": [
+                  {
+                    "url": "latitude",
+                    "valueDecimal": 42.210740482839014
+                  },
+                  {
+                    "url": "longitude",
+                    "valueDecimal": -71.61200003528175
+                  }
+                ]
+              }
+            ],
+            "line": [
+              "638 Brakus Union Suite 44"
+            ],
+            "city": "Northbridge",
+            "state": "Massachusetts",
+            "country": "US"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-67816396-e325-496d-a6ec-c047756b7ce4",
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "PPO"
+            }
+          ]
+        },
+        "subscriberId": "SYN67816396",
+        "beneficiary": {
+          "reference": "Patient/67816396-e325-496d-a6ec-c047756b7ce4"
+        },
+        "payor": [
+          {
+            "display": "UnitedHealthcare"
+          }
+        ],
+        "class": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "code": "plan"
+                }
+              ]
+            },
+            "name": "UnitedHealthcare PPO"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-67816396-e325-496d-a6ec-c047756b7ce4-0",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "40055000",
+              "display": "Chronic sinusitis (disorder)"
+            }
+          ],
+          "text": "Chronic sinusitis (disorder)"
+        },
+        "subject": {
+          "reference": "Patient/67816396-e325-496d-a6ec-c047756b7ce4"
+        }
+      }
+    }
+  ]
+}

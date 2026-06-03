@@ -1,0 +1,162 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "adccf2c3-9dc4-4067-ba23-98982c4875da",
+        "name": [
+          {
+            "use": "official",
+            "family": "Stiedemann",
+            "given": [
+              "Aaron"
+            ]
+          }
+        ],
+        "gender": "male",
+        "birthDate": "1946-03-29",
+        "address": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/geolocation",
+                "extension": [
+                  {
+                    "url": "latitude",
+                    "valueDecimal": 42.58942256332994
+                  },
+                  {
+                    "url": "longitude",
+                    "valueDecimal": -71.3827654850569
+                  }
+                ]
+              }
+            ],
+            "line": [
+              "378 Krajcik Lodge"
+            ],
+            "city": "Westford",
+            "state": "Massachusetts",
+            "country": "US"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-adccf2c3-9dc4-4067-ba23-98982c4875da",
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "EPO"
+            }
+          ]
+        },
+        "subscriberId": "SYNADCCF2C3",
+        "beneficiary": {
+          "reference": "Patient/adccf2c3-9dc4-4067-ba23-98982c4875da"
+        },
+        "payor": [
+          {
+            "display": "Anthem"
+          }
+        ],
+        "class": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "code": "plan"
+                }
+              ]
+            },
+            "name": "Anthem EPO"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-adccf2c3-9dc4-4067-ba23-98982c4875da-0",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "15777000",
+              "display": "Prediabetes"
+            }
+          ],
+          "text": "Prediabetes"
+        },
+        "subject": {
+          "reference": "Patient/adccf2c3-9dc4-4067-ba23-98982c4875da"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-adccf2c3-9dc4-4067-ba23-98982c4875da-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "271737000",
+              "display": "Anemia (disorder)"
+            }
+          ],
+          "text": "Anemia (disorder)"
+        },
+        "subject": {
+          "reference": "Patient/adccf2c3-9dc4-4067-ba23-98982c4875da"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-adccf2c3-9dc4-4067-ba23-98982c4875da-2",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "55822004",
+              "display": "Hyperlipidemia"
+            }
+          ],
+          "text": "Hyperlipidemia"
+        },
+        "subject": {
+          "reference": "Patient/adccf2c3-9dc4-4067-ba23-98982c4875da"
+        }
+      }
+    }
+  ]
+}

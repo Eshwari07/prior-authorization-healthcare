@@ -1,0 +1,189 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "7978d71c-094b-459e-92be-2b62f4cf5e6c",
+        "name": [
+          {
+            "use": "official",
+            "family": "Ankunding",
+            "given": [
+              "Adria"
+            ]
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1968-03-02",
+        "address": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/geolocation",
+                "extension": [
+                  {
+                    "url": "latitude",
+                    "valueDecimal": 42.20405474568232
+                  },
+                  {
+                    "url": "longitude",
+                    "valueDecimal": -71.51596327558782
+                  }
+                ]
+              }
+            ],
+            "line": [
+              "547 Ruecker Passage Unit 33"
+            ],
+            "city": "Hopedale",
+            "state": "Massachusetts",
+            "postalCode": "01747",
+            "country": "US"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-7978d71c-094b-459e-92be-2b62f4cf5e6c",
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "HMO"
+            }
+          ]
+        },
+        "subscriberId": "SYN7978D71C",
+        "beneficiary": {
+          "reference": "Patient/7978d71c-094b-459e-92be-2b62f4cf5e6c"
+        },
+        "payor": [
+          {
+            "display": "Medicaid"
+          }
+        ],
+        "class": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "code": "plan"
+                }
+              ]
+            },
+            "name": "Medicaid HMO"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-7978d71c-094b-459e-92be-2b62f4cf5e6c-0",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "40055000",
+              "display": "Chronic sinusitis (disorder)"
+            }
+          ],
+          "text": "Chronic sinusitis (disorder)"
+        },
+        "subject": {
+          "reference": "Patient/7978d71c-094b-459e-92be-2b62f4cf5e6c"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-7978d71c-094b-459e-92be-2b62f4cf5e6c-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "19169002",
+              "display": "Miscarriage in first trimester"
+            }
+          ],
+          "text": "Miscarriage in first trimester"
+        },
+        "subject": {
+          "reference": "Patient/7978d71c-094b-459e-92be-2b62f4cf5e6c"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-7978d71c-094b-459e-92be-2b62f4cf5e6c-2",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "162864005",
+              "display": "Body mass index 30+ - obesity (finding)"
+            }
+          ],
+          "text": "Body mass index 30+ - obesity (finding)"
+        },
+        "subject": {
+          "reference": "Patient/7978d71c-094b-459e-92be-2b62f4cf5e6c"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-7978d71c-094b-459e-92be-2b62f4cf5e6c-3",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "55822004",
+              "display": "Hyperlipidemia"
+            }
+          ],
+          "text": "Hyperlipidemia"
+        },
+        "subject": {
+          "reference": "Patient/7978d71c-094b-459e-92be-2b62f4cf5e6c"
+        }
+      }
+    }
+  ]
+}

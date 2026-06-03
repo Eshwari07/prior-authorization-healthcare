@@ -1,0 +1,241 @@
+{
+  "resourceType": "Bundle",
+  "type": "collection",
+  "entry": [
+    {
+      "resource": {
+        "resourceType": "Patient",
+        "id": "763a24b2-3655-44b7-a231-106b766b07a9",
+        "name": [
+          {
+            "use": "official",
+            "family": "Villa",
+            "given": [
+              "Alejandra"
+            ]
+          }
+        ],
+        "gender": "female",
+        "birthDate": "1960-07-31",
+        "address": [
+          {
+            "extension": [
+              {
+                "url": "http://hl7.org/fhir/StructureDefinition/geolocation",
+                "extension": [
+                  {
+                    "url": "latitude",
+                    "valueDecimal": 42.31939067528459
+                  },
+                  {
+                    "url": "longitude",
+                    "valueDecimal": -71.12425277683927
+                  }
+                ]
+              }
+            ],
+            "line": [
+              "611 Gorczany Landing Unit 52"
+            ],
+            "city": "Dedham",
+            "state": "Massachusetts",
+            "postalCode": "02026",
+            "country": "US"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Coverage",
+        "id": "coverage-763a24b2-3655-44b7-a231-106b766b07a9",
+        "status": "active",
+        "type": {
+          "coding": [
+            {
+              "system": "http://terminology.hl7.org/CodeSystem/v3-ActCode",
+              "code": "PPO"
+            }
+          ]
+        },
+        "subscriberId": "SYN763A24B2",
+        "beneficiary": {
+          "reference": "Patient/763a24b2-3655-44b7-a231-106b766b07a9"
+        },
+        "payor": [
+          {
+            "display": "Blue Cross Blue Shield"
+          }
+        ],
+        "class": [
+          {
+            "type": {
+              "coding": [
+                {
+                  "code": "plan"
+                }
+              ]
+            },
+            "name": "Blue Cross Blue Shield PPO"
+          }
+        ]
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-763a24b2-3655-44b7-a231-106b766b07a9-0",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "59621000",
+              "display": "Hypertension"
+            }
+          ],
+          "text": "Hypertension"
+        },
+        "subject": {
+          "reference": "Patient/763a24b2-3655-44b7-a231-106b766b07a9"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-763a24b2-3655-44b7-a231-106b766b07a9-1",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "19169002",
+              "display": "Miscarriage in first trimester"
+            }
+          ],
+          "text": "Miscarriage in first trimester"
+        },
+        "subject": {
+          "reference": "Patient/763a24b2-3655-44b7-a231-106b766b07a9"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-763a24b2-3655-44b7-a231-106b766b07a9-2",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "162864005",
+              "display": "Body mass index 30+ - obesity (finding)"
+            }
+          ],
+          "text": "Body mass index 30+ - obesity (finding)"
+        },
+        "subject": {
+          "reference": "Patient/763a24b2-3655-44b7-a231-106b766b07a9"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-763a24b2-3655-44b7-a231-106b766b07a9-3",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "83664006",
+              "display": "Idiopathic atrophic hypothyroidism"
+            }
+          ],
+          "text": "Idiopathic atrophic hypothyroidism"
+        },
+        "subject": {
+          "reference": "Patient/763a24b2-3655-44b7-a231-106b766b07a9"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-763a24b2-3655-44b7-a231-106b766b07a9-4",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "68496003",
+              "display": "Polyp of colon"
+            }
+          ],
+          "text": "Polyp of colon"
+        },
+        "subject": {
+          "reference": "Patient/763a24b2-3655-44b7-a231-106b766b07a9"
+        }
+      }
+    },
+    {
+      "resource": {
+        "resourceType": "Condition",
+        "id": "cond-763a24b2-3655-44b7-a231-106b766b07a9-5",
+        "clinicalStatus": {
+          "coding": [
+            {
+              "code": "active"
+            }
+          ]
+        },
+        "code": {
+          "coding": [
+            {
+              "system": "http://snomed.info/sct",
+              "code": "713197008",
+              "display": "Recurrent rectal polyp"
+            }
+          ],
+          "text": "Recurrent rectal polyp"
+        },
+        "subject": {
+          "reference": "Patient/763a24b2-3655-44b7-a231-106b766b07a9"
+        }
+      }
+    }
+  ]
+}
