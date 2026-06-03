@@ -151,6 +151,49 @@ def get_history():
         return {"runs": [], "error": str(exc)}
 
 
+@app.get("/api/reference/patients-detail")
+def get_patients_detail():
+    """Return the full denormalized patient table (from patients.csv)."""
+    from utils.data_loader import load_patients_csv
+    return {"patients": load_patients_csv()}
+
+
+@app.get("/api/reference/icd10")
+def get_icd10(q: str = "", limit: int = 500):
+    """Return ICD-10-CM codes matching the search term (code or description).
+
+    With no query, returns the first `limit` codes plus the total count so the
+    UI can display a paginated table over the full ~74k-code set.
+    """
+    from utils.data_loader import load_icd10
+    codes = load_icd10()
+    total = len(codes)
+    term = q.strip().lower()
+    if term:
+        matched = [
+            {"code": code, "description": desc}
+            for code, desc in codes.items()
+            if term in code.lower() or term in desc.lower()
+        ]
+    else:
+        matched = [{"code": code, "description": desc} for code, desc in codes.items()]
+    return {"codes": matched[:limit], "total": total, "matched": len(matched)}
+
+
+@app.get("/api/reference/procedures")
+def get_procedures():
+    """Return all procedure (CPT/HCPCS) codes from the local CSV."""
+    from utils.data_loader import load_procedures
+    return {"procedures": load_procedures()}
+
+
+@app.get("/api/reference/pa-rules")
+def get_pa_rules():
+    """Return the PA requirement ruleset JSON."""
+    from utils.data_loader import load_pa_rules
+    return load_pa_rules()
+
+
 @app.get("/api/analytics")
 def get_analytics():
     try:
