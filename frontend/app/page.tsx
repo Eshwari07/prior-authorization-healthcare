@@ -181,10 +181,104 @@ function FinalBanner({ result }: { result: RunResult }) {
   return null;
 }
 
+// ─── Patient Details Card ─────────────────────────────────────────────────────
+
+function PatientDetailsCard({ patient, detail }: { patient: Patient; detail?: PatientDetail }) {
+  const isActive = detail ? detail.coverage_active === "True" : !!patient.coverage_active;
+  const conditions = (detail?.conditions ?? "")
+    .split("|")
+    .map((c) => c.trim())
+    .filter(Boolean);
+  const medications = (detail?.medications ?? "")
+    .split(";")
+    .map((m) => m.trim())
+    .filter(Boolean);
+
+  const fields: { label: string; value: string }[] = [
+    { label: "Date of Birth", value: detail?.dob || patient.dob || "—" },
+    { label: "Sex", value: detail?.gender || "—" },
+    { label: "Insurer", value: detail?.insurer || patient.insurer || "—" },
+    { label: "Member ID", value: detail?.member_id || "—" },
+    { label: "Plan", value: detail?.plan_name || patient.plan_name || "—" },
+    { label: "Plan Type", value: detail?.plan_type || "—" },
+  ];
+
+  return (
+    <div className="rounded-xl border border-gray-200 bg-gray-50/70 p-4 shadow-sm">
+      <div className="flex items-center justify-between mb-3">
+        <div className="flex items-center gap-2">
+          <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-blue-100">
+            <Users className="w-4 h-4 text-blue-600" />
+          </span>
+          <p className="text-sm font-semibold text-gray-900">{patient.name}</p>
+        </div>
+        <span
+          className={`text-[10px] font-medium px-2 py-0.5 rounded-full border ${
+            isActive
+              ? "bg-green-100 text-green-700 border-green-200"
+              : "bg-red-100 text-red-700 border-red-200"
+          }`}
+        >
+          {isActive ? "Coverage Active" : "Coverage Inactive"}
+        </span>
+      </div>
+
+      <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
+        {fields.map(({ label, value }) => (
+          <div key={label}>
+            <p className="text-[10px] text-gray-400 uppercase tracking-wide mb-0.5">{label}</p>
+            <p className="text-sm font-medium text-gray-800 capitalize">{value}</p>
+          </div>
+        ))}
+        {detail && (detail.coverage_start || detail.coverage_end) && (
+          <div>
+            <p className="text-[10px] text-gray-400 uppercase tracking-wide mb-0.5">Coverage Period</p>
+            <p className="text-sm font-medium text-gray-800">
+              {detail.coverage_start || "—"} → {detail.coverage_end || "—"}
+            </p>
+          </div>
+        )}
+      </div>
+
+      <div className="mt-3 pt-3 border-t border-gray-200 grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <div>
+          <p className="text-[10px] text-gray-400 uppercase tracking-wide mb-1">Conditions (ICD-10)</p>
+          {conditions.length > 0 ? (
+            <div className="flex flex-wrap gap-1.5">
+              {conditions.map((c) => (
+                <span key={c} className="text-[11px] bg-white border border-gray-200 rounded-md px-2 py-0.5 text-gray-700">
+                  {c}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm text-gray-400">—</p>
+          )}
+        </div>
+        <div>
+          <p className="text-[10px] text-gray-400 uppercase tracking-wide mb-1">Medications</p>
+          {medications.length > 0 ? (
+            <div className="flex flex-wrap gap-1.5">
+              {medications.map((m) => (
+                <span key={m} className="text-[11px] bg-white border border-gray-200 rounded-md px-2 py-0.5 text-gray-700">
+                  {m}
+                </span>
+              ))}
+            </div>
+          ) : (
+            <p className="text-sm text-gray-400">—</p>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // ─── Submit Tab ───────────────────────────────────────────────────────────────
 
 function SubmitTab() {
   const [patients, setPatients] = useState<Patient[]>([]);
+  const [details, setDetails] = useState<PatientDetail[]>([]);
   const [selectedIdx, setSelectedIdx] = useState(0);
   const [procedure, setProcedure] = useState("");
   const [running, setRunning] = useState(false);
@@ -197,6 +291,10 @@ function SubmitTab() {
       .then((r) => r.json())
       .then((d) => setPatients(d.patients ?? []))
       .catch(() => setPatients([]));
+    fetch(`${API_URL}/api/reference/patients-detail`)
+      .then((r) => r.json())
+      .then((d) => setDetails(d.patients ?? []))
+      .catch(() => setDetails([]));
   }, []);
 
   const handleSubmit = async () => {
@@ -250,50 +348,46 @@ function SubmitTab() {
   };
 
   const selectedPatient = patients[selectedIdx];
+  const selectedDetail = selectedPatient
+    ? details.find((d) => d.patient_id === selectedPatient.patient_id)
+    : undefined;
 
   return (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        <div className="space-y-1.5">
-          <label className="text-sm font-medium text-gray-700">Patient</label>
-          <select
-            className="w-full rounded-lg border border-gray-300 bg-white text-gray-900 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
-            value={selectedIdx}
-            onChange={(e) => setSelectedIdx(Number(e.target.value))}
-            disabled={running}
-          >
-            {patients.map((p, i) => (
-              <option key={p.patient_id} value={i}>
-                {p.name} — {p.plan_name ?? p.insurer ?? "Unknown plan"}
-              </option>
-            ))}
-          </select>
-          {selectedPatient && (
-            <div className="flex flex-wrap gap-2 mt-2">
-              {selectedPatient.insurer && (
-                <Badge variant="outline">{selectedPatient.insurer}</Badge>
-              )}
-              <Badge variant={selectedPatient.coverage_active ? "success" : "error"}>
-                {selectedPatient.coverage_active ? "Active" : "Inactive"}
-              </Badge>
-            </div>
-          )}
-        </div>
+      {/* Step 1 — pick a patient */}
+      <div className="space-y-1.5">
+        <label className="text-sm font-medium text-gray-700">Patient</label>
+        <select
+          className="w-full rounded-lg border border-gray-300 bg-white text-gray-900 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 shadow-sm"
+          value={selectedIdx}
+          onChange={(e) => setSelectedIdx(Number(e.target.value))}
+          disabled={running}
+        >
+          {patients.map((p, i) => (
+            <option key={p.patient_id} value={i}>
+              {p.name} — {p.plan_name ?? p.insurer ?? "Unknown plan"}
+            </option>
+          ))}
+        </select>
+      </div>
 
-        <div className="space-y-1.5">
-          <label className="text-sm font-medium text-gray-700">Procedure Request</label>
-          <input
-            className="w-full rounded-lg border border-gray-300 bg-white text-gray-900 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400 shadow-sm"
-            placeholder="e.g. MRI of the lower back"
-            value={procedure}
-            onChange={(e) => setProcedure(e.target.value)}
-            disabled={running}
-            onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
-          />
-          <p className="text-xs text-gray-400 mt-1">
-            Try: MRI lumbar spine · total knee replacement · laparoscopic hysterectomy
-          </p>
-        </div>
+      {/* Patient details — auto-populated from the selected patient */}
+      {selectedPatient && <PatientDetailsCard patient={selectedPatient} detail={selectedDetail} />}
+
+      {/* Step 2 — enter the procedure request */}
+      <div className="space-y-1.5">
+        <label className="text-sm font-medium text-gray-700">Procedure Request</label>
+        <input
+          className="w-full rounded-lg border border-gray-300 bg-white text-gray-900 px-3 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-blue-500 placeholder:text-gray-400 shadow-sm"
+          placeholder="e.g. MRI of the lower back"
+          value={procedure}
+          onChange={(e) => setProcedure(e.target.value)}
+          disabled={running}
+          onKeyDown={(e) => e.key === "Enter" && handleSubmit()}
+        />
+        <p className="text-xs text-gray-400 mt-1">
+          Try: MRI lumbar spine · total knee replacement · laparoscopic hysterectomy
+        </p>
       </div>
 
       <button
