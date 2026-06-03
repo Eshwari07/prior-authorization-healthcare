@@ -29,3 +29,9 @@ Thumbs.db
 
 # Raw downloaded CMS archives (keep parsed outputs only)
 *.zip
+
+# Legacy embedded HF Space clone (deploy now handled by .github/workflows/deploy-hf.yml)
+prior-auth-api/
+
+# Raw CMS source files (not used at runtime; parsed copies live in data/). Too large for HF push.
+FY24-CMS-1785-F-Code-Descriptions/

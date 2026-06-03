@@ -1,0 +1,27 @@
+name: Sync backend to HF Spaces
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch: {}
+
+jobs:
+  sync-to-hf:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 1
+
+      - name: Push to Hugging Face Space
+        env:
+          HF_TOKEN: ${{ secrets.HF_TOKEN }}
+        run: |
+          git config --global user.email "actions@github.com"
+          git config --global user.name "GitHub Actions"
+          # Flatten to a single commit so large blobs in history are never pushed to HF
+          git checkout --orphan hf-deploy
+          git add -A
+          git commit -m "Deploy ${GITHUB_SHA}"
+          git push --force "https://EshwariG:${HF_TOKEN}@huggingface.co/spaces/EshwariG/prior-auth-api" hf-deploy:main

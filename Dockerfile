@@ -12,6 +12,10 @@ COPY . .
 # Install backend dependencies
 RUN pip install --no-cache-dir -r api/requirements.txt
 
+# Regenerate the denormalized patient table from the FHIR bundles at build time
+# so the reference panel always has fresh data regardless of the committed CSV.
+RUN python scripts/generate_patients_csv.py
+
 EXPOSE 7860
 
 CMD ["uvicorn", "api.main:app", "--host", "0.0.0.0", "--port", "7860"]

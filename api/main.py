@@ -154,8 +154,11 @@ def get_history():
 @app.get("/api/reference/patients-detail")
 def get_patients_detail():
     """Return the full denormalized patient table (from patients.csv)."""
-    from utils.data_loader import load_patients_csv
-    return {"patients": load_patients_csv()}
+    try:
+        from utils.data_loader import load_patients_csv
+        return {"patients": load_patients_csv()}
+    except Exception as exc:  # noqa: BLE001
+        return {"patients": [], "error": str(exc)}
 
 
 @app.get("/api/reference/icd10")
