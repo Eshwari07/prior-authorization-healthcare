@@ -10,10 +10,12 @@ import {
   CheckCircle,
   ChevronLeft,
   ChevronRight,
+  ExternalLink,
   Eye,
   FileText,
   Heart,
   History,
+  Info,
   Loader2,
   Search,
   Send,
@@ -25,6 +27,7 @@ import {
   XCircle,
 } from "lucide-react";
 import { AgentTraceCard } from "@/components/AgentTraceCard";
+import { ChatBot } from "@/components/ChatBot";
 import { Badge } from "@/components/ui/badge";
 import { API_URL } from "@/lib/utils";
 
@@ -850,6 +853,18 @@ function ReferencePanel({ tab }: { tab: SidebarTab }) {
         {/* ── Patients tab ── */}
         {tab === "patients" && (
           <>
+            <InfoBanner
+              badge="Synthetic Data · No HIPAA Risk"
+              links={[
+                { label: "Synthea™ by MITRE", href: "https://synthea.mitre.org/" },
+                { label: "Sample Data on GitHub", href: "https://github.com/synthetichealth/synthea-sample-data" },
+              ]}
+            >
+              All 24 patient records are fully <strong>synthetic</strong> — generated in <strong>HL7 FHIR R4</strong> format
+              to simulate realistic insurance coverage, diagnoses, and medications without using any real patient
+              information. There is zero PHI exposure and no HIPAA concerns. Plan types, coverage status, and conditions
+              were hand-crafted to cover a range of PA scenarios (active &amp; cancelled coverage, HMO/PPO/Medicare plans).
+            </InfoBanner>
             <SidebarSearch value={patientSearch} onChange={setPatientSearch} placeholder="Search name, insurer, condition…" />
             <p className="text-[10px] text-gray-400">{filteredPatients.length} of {patients.length} patients</p>
             <div className="flex-1 overflow-auto rounded-lg border border-gray-200">
@@ -891,6 +906,19 @@ function ReferencePanel({ tab }: { tab: SidebarTab }) {
         {/* ── ICD-10 tab ── */}
         {tab === "icd10" && (
           <>
+            <InfoBanner
+              badge="CMS FY 2024 · 74,044 codes"
+              links={[
+                { label: "CMS ICD-10-CM FY2024 Downloads", href: "https://www.cms.gov/medicare/coding-billing/icd-10-codes" },
+              ]}
+            >
+              <strong>ICD-10-CM</strong> (International Classification of Diseases, 10th Revision, Clinical Modification)
+              is the standard US diagnosis coding system. Every insurance claim must include ICD-10 codes to prove{" "}
+              <strong>medical necessity</strong> — vague codes like &#34;back pain&#34; (R52) cause PA denials, while
+              specific codes like <em>M51.16 — Intervertebral disc degeneration, lumbar region</em> are required for
+              advanced procedures. This is the <strong>official CMS FY 2024 release</strong> of all 74,044 billable
+              diagnosis codes.
+            </InfoBanner>
             <SidebarSearch value={icdSearch} onChange={onIcdSearch} placeholder="Search ICD-10 code or description…" />
             <p className="text-[10px] text-gray-400">
               {icdSearch
@@ -929,6 +957,21 @@ function ReferencePanel({ tab }: { tab: SidebarTab }) {
         {/* ── HCPCS tab ── */}
         {tab === "hcpcs" && (
           <>
+            <InfoBanner
+              badge="CPT + HCPCS Level II · 61 curated codes"
+              links={[
+                { label: "AMA CPT Code Set", href: "https://www.ama-assn.org/practice-management/cpt" },
+                { label: "CMS HCPCS Level II", href: "https://www.cms.gov/medicare/coding-billing/healthcare-common-procedure-system" },
+              ]}
+            >
+              Two code sets cover every billable procedure: <strong>CPT</strong> (5-digit AMA codes, e.g.{" "}
+              <code className="text-[10px] bg-white border border-gray-200 rounded px-1">72148</code> — MRI lumbar spine)
+              for physician services and surgeries; <strong>HCPCS Level II</strong> (letter-prefixed CMS codes, e.g.{" "}
+              <code className="text-[10px] bg-white border border-gray-200 rounded px-1">J0178</code> — Aflibercept,{" "}
+              <code className="text-[10px] bg-white border border-gray-200 rounded px-1">E0601</code> — CPAP device) for
+              drugs and durable medical equipment. PA submissions must include the exact code and required laterality
+              modifiers (LT/RT) — missing or incorrect codes are the <strong>#1 cause of claim denials</strong>.
+            </InfoBanner>
             <SidebarSearch value={procSearch} onChange={setProcSearch} placeholder="Search code, description, category…" />
             <p className="text-[10px] text-gray-400">{filteredProcs.length} of {procedures.length} procedures</p>
             <div className="flex-1 overflow-auto rounded-lg border border-gray-200">
@@ -961,6 +1004,20 @@ function ReferencePanel({ tab }: { tab: SidebarTab }) {
         {/* ── PA Rules tab ── */}
         {tab === "parules" && paRules && (
           <div className="flex-1 overflow-auto space-y-4 pr-1">
+            <InfoBanner
+              badge="Representative Rules · Not Insurer-Specific"
+              links={[
+                { label: "AMA — Prior Authorization Resources", href: "https://www.ama-assn.org/practice-management/prior-authorization" },
+              ]}
+            >
+              <strong>Prior Authorization (PA)</strong> is the insurer&#39;s pre-approval process required before
+              certain services are performed. Insurers mandate PA for high-cost or high-variability procedures —
+              advanced imaging (MRI/CT), elective surgeries, specialty drug infusions, and durable medical equipment —
+              to verify <strong>medical necessity</strong> before the service is rendered. Without it, claims are
+              automatically denied. Rules here are <strong>modeled on publicly documented commercial payer guidelines</strong>{" "}
+              (Aetna, Cigna, UHC, BCBS) and vary by plan type (HMO, PPO, EPO, POS). Actual payer requirements are
+              proprietary — these rules are representative, not prescriptive.
+            </InfoBanner>
             <PaRuleTable
               title="Category PA Requirements"
               headers={["Procedure Category", "Prior Auth?"]}
@@ -1003,6 +1060,46 @@ function ReferencePanel({ tab }: { tab: SidebarTab }) {
         {tab === "parules" && !paRules && (
           <div className="flex items-center justify-center py-8 text-gray-400">
             <Loader2 className="w-4 h-4 animate-spin mr-2" /> Loading…
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
+// ─── Info Banner ─────────────────────────────────────────────────────────────
+
+function InfoBanner({
+  badge,
+  links,
+  children,
+}: {
+  badge: string;
+  links: { label: string; href: string }[];
+  children: React.ReactNode;
+}) {
+  return (
+    <div className="flex gap-3 rounded-lg bg-blue-50 border border-blue-100 px-3.5 py-3 shrink-0">
+      <Info className="w-4 h-4 text-blue-500 mt-0.5 shrink-0" />
+      <div className="flex flex-col gap-1.5 min-w-0">
+        <span className="text-[10px] font-semibold text-blue-700 bg-blue-100 border border-blue-200 rounded-full px-2 py-0.5 w-fit">
+          {badge}
+        </span>
+        <p className="text-[11px] text-gray-600 leading-relaxed">{children}</p>
+        {links.length > 0 && (
+          <div className="flex flex-wrap gap-x-3 gap-y-1 mt-0.5">
+            {links.map(({ label, href }) => (
+              <a
+                key={href}
+                href={href}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-[10px] text-blue-600 hover:text-blue-800 underline underline-offset-2 flex items-center gap-0.5"
+              >
+                {label}
+                <ExternalLink className="w-2.5 h-2.5" />
+              </a>
+            ))}
           </div>
         )}
       </div>
@@ -1203,6 +1300,8 @@ export default function HomePage() {
           </main>
         </div>
       </div>
+
+      <ChatBot />
     </div>
   );
 }
