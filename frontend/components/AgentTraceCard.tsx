@@ -52,11 +52,11 @@ function ConfidenceBar({ value }: { value: number }) {
   const color = pct >= 80 ? "bg-green-500" : pct >= 50 ? "bg-amber-400" : "bg-red-500";
   return (
     <div className="mt-2">
-      <div className="flex justify-between text-xs text-gray-500 mb-1">
+      <div className="flex justify-between text-sm text-gray-500 mb-1">
         <span>Confidence</span>
         <span>{pct.toFixed(0)}%</span>
       </div>
-      <div className="h-1.5 bg-gray-200 rounded-full overflow-hidden">
+      <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
         <div className={cn("h-full rounded-full transition-all", color)} style={{ width: `${pct}%` }} />
       </div>
     </div>
@@ -69,16 +69,16 @@ export function AgentTraceCard({ step, index }: { step: TraceStep; index: number
   const details = step.details ?? {};
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white shadow-sm overflow-hidden">
+    <div className="rounded-xl border border-gray-200 bg-white shadow-md overflow-hidden hover:shadow-lg transition-shadow">
       <button
         onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-center justify-between px-4 py-3 hover:bg-gray-50 transition-colors"
+        className="w-full flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors"
       >
         <div className="flex items-center gap-3">
-          <span className="flex items-center justify-center w-7 h-7 rounded-lg bg-blue-100 text-blue-600">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-100 text-blue-600">
             {meta.icon}
           </span>
-          <span className="font-medium text-gray-900 text-sm">{meta.label}</span>
+          <span className="font-semibold text-gray-900 text-base">{meta.label}</span>
           <StatusBadge status={step.status} />
           <span className="text-gray-500 text-sm hidden sm:block">{step.decision}</span>
         </div>
@@ -86,8 +86,8 @@ export function AgentTraceCard({ step, index }: { step: TraceStep; index: number
       </button>
 
       {open && (
-        <div className="px-4 pb-4 space-y-3 border-t border-gray-100">
-          <p className="text-sm text-gray-700 mt-3">
+        <div className="px-5 pb-5 space-y-3 border-t border-gray-100">
+          <p className="text-sm text-gray-700 mt-4">
             <span className="text-gray-500 font-medium">Reasoning: </span>
             {step.reasoning}
           </p>
@@ -123,14 +123,14 @@ export function AgentTraceCard({ step, index }: { step: TraceStep; index: number
                   <DetailRow label="Correction" value={(details.correction as string[]).join("; ")} />
                 )}
                 {(details.clinical_justification as string) && (
-                  <p className="text-xs text-gray-500 italic">{details.clinical_justification as string}</p>
+                  <p className="text-sm text-gray-500 italic">{details.clinical_justification as string}</p>
                 )}
               </div>
             </div>
           )}
 
           {step.data_used && step.data_used.length > 0 && (
-            <p className="text-xs text-gray-400">
+            <p className="text-sm text-gray-400">
               Data consulted: {step.data_used.join(" · ")}
             </p>
           )}
@@ -155,10 +155,10 @@ function DetailRow({
 }) {
   return (
     <div className="flex flex-wrap gap-1.5 items-baseline">
-      <span className="text-xs text-gray-500 font-medium">{label}:</span>
+      <span className="text-sm text-gray-500 font-medium">{label}:</span>
       <span
         className={cn(
-          "text-xs",
+          "text-sm",
           mono && "font-mono bg-blue-50 px-1 rounded text-blue-700 border border-blue-100",
           highlight === "error" && "text-red-600",
           !mono && !highlight && "text-gray-700"

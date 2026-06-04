@@ -141,7 +141,7 @@ function StatusIcon({ status }: { status: string }) {
 function FinalBanner({ result }: { result: RunResult }) {
   if (result.final_status === "approved") {
     return (
-      <div className="flex items-center gap-3 rounded-xl bg-green-50 border border-green-200 px-4 py-3">
+      <div className="flex items-center gap-3 rounded-xl bg-green-50 border border-green-200 px-5 py-4">
         <CheckCircle className="w-5 h-5 text-green-600 shrink-0" />
         <div>
           <p className="text-green-800 font-semibold">Authorization Approved</p>
@@ -155,7 +155,7 @@ function FinalBanner({ result }: { result: RunResult }) {
   }
   if (result.final_status === "ineligible") {
     return (
-      <div className="flex items-center gap-3 rounded-xl bg-red-50 border border-red-200 px-4 py-3">
+      <div className="flex items-center gap-3 rounded-xl bg-red-50 border border-red-200 px-5 py-4">
         <Ban className="w-5 h-5 text-red-600 shrink-0" />
         <p className="text-red-800 font-semibold">Not Eligible — see eligibility reasoning above</p>
       </div>
@@ -164,7 +164,7 @@ function FinalBanner({ result }: { result: RunResult }) {
   if (result.final_status === "escalated") {
     return (
       <div className="space-y-3">
-        <div className="flex items-center gap-3 rounded-xl bg-amber-50 border border-amber-200 px-4 py-3">
+        <div className="flex items-center gap-3 rounded-xl bg-amber-50 border border-amber-200 px-5 py-4">
           <AlertTriangle className="w-5 h-5 text-amber-600 shrink-0" />
           <p className="text-amber-800 font-semibold">Escalated to Human Review</p>
         </div>
@@ -216,7 +216,7 @@ function PatientDetailsCard({ patient, detail }: { patient: Patient; detail?: Pa
           <p className="text-sm font-semibold text-gray-900">{patient.name}</p>
         </div>
         <span
-          className={`text-[10px] font-medium px-2 py-0.5 rounded-full border ${
+          className={`text-xs font-medium px-2 py-0.5 rounded-full border ${
             isActive
               ? "bg-green-100 text-green-700 border-green-200"
               : "bg-red-100 text-red-700 border-red-200"
@@ -229,13 +229,13 @@ function PatientDetailsCard({ patient, detail }: { patient: Patient; detail?: Pa
       <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
         {fields.map(({ label, value }) => (
           <div key={label}>
-            <p className="text-[10px] text-gray-400 uppercase tracking-wide mb-0.5">{label}</p>
+            <p className="text-xs text-gray-400 uppercase tracking-wide mb-0.5">{label}</p>
             <p className="text-sm font-medium text-gray-800 capitalize">{value}</p>
           </div>
         ))}
         {detail && (detail.coverage_start || detail.coverage_end) && (
           <div>
-            <p className="text-[10px] text-gray-400 uppercase tracking-wide mb-0.5">Coverage Period</p>
+            <p className="text-xs text-gray-400 uppercase tracking-wide mb-0.5">Coverage Period</p>
             <p className="text-sm font-medium text-gray-800">
               {detail.coverage_start || "—"} → {detail.coverage_end || "—"}
             </p>
@@ -245,11 +245,11 @@ function PatientDetailsCard({ patient, detail }: { patient: Patient; detail?: Pa
 
       <div className="mt-3 pt-3 border-t border-gray-200 grid grid-cols-1 sm:grid-cols-2 gap-3">
         <div>
-          <p className="text-[10px] text-gray-400 uppercase tracking-wide mb-1">Conditions (ICD-10)</p>
+          <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Conditions (ICD-10)</p>
           {conditions.length > 0 ? (
             <div className="flex flex-wrap gap-1.5">
               {conditions.map((c) => (
-                <span key={c} className="text-[11px] bg-white border border-gray-200 rounded-md px-2 py-0.5 text-gray-700">
+                <span key={c} className="text-xs bg-white border border-gray-200 rounded-md px-2 py-0.5 text-gray-700">
                   {c}
                 </span>
               ))}
@@ -259,11 +259,11 @@ function PatientDetailsCard({ patient, detail }: { patient: Patient; detail?: Pa
           )}
         </div>
         <div>
-          <p className="text-[10px] text-gray-400 uppercase tracking-wide mb-1">Medications</p>
+          <p className="text-xs text-gray-400 uppercase tracking-wide mb-1">Medications</p>
           {medications.length > 0 ? (
             <div className="flex flex-wrap gap-1.5">
               {medications.map((m) => (
-                <span key={m} className="text-[11px] bg-white border border-gray-200 rounded-md px-2 py-0.5 text-gray-700">
+                <span key={m} className="text-xs bg-white border border-gray-200 rounded-md px-2 py-0.5 text-gray-700">
                   {m}
                 </span>
               ))}
@@ -413,7 +413,7 @@ function SubmitTab() {
 
       {trace.length > 0 && (
         <div className="space-y-3">
-          <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Agent Trace</p>
+          <p className="text-base font-semibold text-gray-600 uppercase tracking-wider">Agent Trace</p>
           {trace.map((step, i) => (
             <AgentTraceCard key={i} step={step} index={i} />
           ))}
@@ -422,7 +422,7 @@ function SubmitTab() {
 
       {result && (
         <div className="space-y-3">
-          <p className="text-sm font-semibold text-gray-500 uppercase tracking-wider">Result</p>
+          <p className="text-base font-semibold text-gray-600 uppercase tracking-wider">Result</p>
           <FinalBanner result={result} />
         </div>
       )}
@@ -466,7 +466,7 @@ function RunReportModal({ run, onClose }: { run: HistoryRun; onClose: () => void
         <div className="px-6 py-5 space-y-6">
           {/* Patient Info */}
           <section>
-            <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Patient Information</h3>
+            <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Patient Information</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               {[
                 { label: "Name", value: run.patient_name },
@@ -477,7 +477,7 @@ function RunReportModal({ run, onClose }: { run: HistoryRun; onClose: () => void
                 { label: "Retries", value: String(run.retry_count ?? 0) },
               ].map(({ label, value }) => (
                 <div key={label} className="bg-gray-50 rounded-lg px-3 py-2.5 border border-gray-100">
-                  <p className="text-xs text-gray-500 mb-0.5">{label}</p>
+                  <p className="text-sm text-gray-500 mb-0.5">{label}</p>
                   <p className="text-sm font-medium text-gray-800 truncate">{value}</p>
                 </div>
               ))}
@@ -486,19 +486,19 @@ function RunReportModal({ run, onClose }: { run: HistoryRun; onClose: () => void
 
           {/* Coding Result */}
           <section>
-            <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Coding Result</h3>
+            <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Coding Result</h3>
             <div className="grid grid-cols-2 sm:grid-cols-3 gap-3">
               <div className="bg-blue-50 rounded-lg px-3 py-2.5 border border-blue-100">
-                <p className="text-xs text-blue-500 mb-0.5">CPT / HCPCS</p>
+                <p className="text-sm text-blue-500 mb-0.5">CPT / HCPCS</p>
                 <p className="text-sm font-mono font-bold text-blue-700">{run.cpt_code || "—"}</p>
               </div>
               <div className="bg-blue-50 rounded-lg px-3 py-2.5 border border-blue-100">
-                <p className="text-xs text-blue-500 mb-0.5">Primary ICD-10</p>
+                <p className="text-sm text-blue-500 mb-0.5">Primary ICD-10</p>
                 <p className="text-sm font-mono font-bold text-blue-700">{run.primary_icd10 || "—"}</p>
               </div>
               {run.secondary_icd10 && run.secondary_icd10.length > 0 && (
                 <div className="bg-blue-50 rounded-lg px-3 py-2.5 border border-blue-100 col-span-2 sm:col-span-1">
-                  <p className="text-xs text-blue-500 mb-0.5">Secondary ICD-10</p>
+                  <p className="text-sm text-blue-500 mb-0.5">Secondary ICD-10</p>
                   <p className="text-sm font-mono text-blue-700">{run.secondary_icd10.join(", ")}</p>
                 </div>
               )}
@@ -507,7 +507,7 @@ function RunReportModal({ run, onClose }: { run: HistoryRun; onClose: () => void
 
           {/* Outcome */}
           <section>
-            <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Submission Outcome</h3>
+            <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Submission Outcome</h3>
             <div className={`flex items-center gap-3 rounded-xl px-4 py-3 border ${run.final_status === "approved" ? "bg-green-50 border-green-200" : run.final_status === "escalated" ? "bg-amber-50 border-amber-200" : "bg-red-50 border-red-200"}`}>
               <StatusIcon status={run.final_status} />
               <div>
@@ -527,7 +527,7 @@ function RunReportModal({ run, onClose }: { run: HistoryRun; onClose: () => void
           {/* Appeal Letter */}
           {run.appeal_letter && (
             <section>
-              <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Appeal Letter</h3>
+              <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Appeal Letter</h3>
               <div className="bg-amber-50 border border-amber-200 rounded-xl p-4">
                 <pre className="text-xs text-gray-700 whitespace-pre-wrap font-sans leading-relaxed">
                   {run.appeal_letter}
@@ -539,7 +539,7 @@ function RunReportModal({ run, onClose }: { run: HistoryRun; onClose: () => void
           {/* Agent Trace */}
           {run.agent_trace && run.agent_trace.length > 0 && (
             <section>
-              <h3 className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">Agent Trace</h3>
+              <h3 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">Agent Trace</h3>
               <div className="space-y-2">
                 {run.agent_trace.map((step, i) => (
                   <AgentTraceCard key={i} step={step} index={i} />
@@ -594,7 +594,7 @@ function HistoryTab() {
           <thead>
             <tr className="border-b border-gray-200 bg-gray-50">
               {headers.map((h) => (
-                <th key={h} className="px-4 py-3 text-left text-xs font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap">
+                <th key={h} className="px-4 py-3 text-left text-sm font-semibold text-gray-500 uppercase tracking-wider whitespace-nowrap">
                   {h}
                 </th>
               ))}
@@ -603,34 +603,34 @@ function HistoryTab() {
           <tbody className="divide-y divide-gray-100">
             {runs.map((r, i) => (
               <tr key={i} className="hover:bg-gray-50 transition-colors">
-                <td className="px-4 py-3 text-gray-500 text-xs whitespace-nowrap">
+                <td className="px-4 py-3 text-gray-500 text-sm whitespace-nowrap">
                   {r.created_at ? new Date(r.created_at).toLocaleDateString() : "—"}
                 </td>
                 <td className="px-4 py-3 text-gray-900 font-medium whitespace-nowrap">{r.patient_name}</td>
                 <td className="px-4 py-3 text-gray-600 whitespace-nowrap">{r.insurer}</td>
-                <td className="px-4 py-3 text-gray-500 text-xs whitespace-nowrap">{r.plan_name ?? "—"}</td>
+                <td className="px-4 py-3 text-gray-500 text-sm whitespace-nowrap">{r.plan_name ?? "—"}</td>
                 <td className="px-4 py-3 text-gray-700 max-w-[180px] truncate">{r.procedure_desc}</td>
-                <td className="px-4 py-3 font-mono text-blue-700 text-xs font-semibold whitespace-nowrap">{r.cpt_code}</td>
-                <td className="px-4 py-3 font-mono text-blue-700 text-xs font-semibold whitespace-nowrap">{r.primary_icd10}</td>
+                <td className="px-4 py-3 font-mono text-blue-700 text-sm font-semibold whitespace-nowrap">{r.cpt_code}</td>
+                <td className="px-4 py-3 font-mono text-blue-700 text-sm font-semibold whitespace-nowrap">{r.primary_icd10}</td>
                 <td className="px-4 py-3 whitespace-nowrap">
                   <div className="flex items-center gap-1.5">
                     <StatusIcon status={r.final_status} />
-                    <span className="capitalize text-gray-700 text-xs font-medium">{r.final_status}</span>
+                    <span className="capitalize text-gray-700 text-sm font-medium">{r.final_status}</span>
                   </div>
                 </td>
-                <td className="px-4 py-3 text-xs text-gray-500 font-mono whitespace-nowrap">{r.auth_number ?? "—"}</td>
+                <td className="px-4 py-3 text-sm text-gray-500 font-mono whitespace-nowrap">{r.auth_number ?? "—"}</td>
                 <td className="px-4 py-3 whitespace-nowrap">
                   {r.denial_code ? (
-                    <span className="inline-flex items-center rounded-full bg-red-100 text-red-700 border border-red-200 px-2 py-0.5 text-xs font-semibold">
+                    <span className="inline-flex items-center rounded-full bg-red-100 text-red-700 border border-red-200 px-2 py-0.5 text-sm font-semibold">
                       {r.denial_code}
                     </span>
                   ) : "—"}
                 </td>
-                <td className="px-4 py-3 text-gray-500 text-center text-xs">{r.retry_count ?? 0}</td>
+                <td className="px-4 py-3 text-gray-500 text-center text-sm">{r.retry_count ?? 0}</td>
                 <td className="px-4 py-3">
                   <button
                     onClick={() => setReportRun(r)}
-                    className="flex items-center gap-1.5 text-xs font-medium text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg px-2.5 py-1.5 transition-colors border border-blue-200 whitespace-nowrap"
+                    className="flex items-center gap-1.5 text-sm font-medium text-blue-600 hover:text-blue-800 hover:bg-blue-50 rounded-lg px-2.5 py-1.5 transition-colors border border-blue-200 whitespace-nowrap"
                   >
                     <Eye className="w-3.5 h-3.5" /> View Report
                   </button>
@@ -658,13 +658,13 @@ function StatCard({
   sub?: string;
 }) {
   return (
-    <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-sm">
+    <div className="rounded-xl border border-gray-200 bg-white p-5 shadow-md">
       <div className="flex items-center gap-3 mb-3">
         <span className="text-blue-600">{icon}</span>
-        <span className="text-xs font-semibold text-gray-500 uppercase tracking-wider">{label}</span>
+        <span className="text-sm font-semibold text-gray-500 uppercase tracking-wider">{label}</span>
       </div>
       <p className="text-2xl font-bold text-gray-900">{value}</p>
-      {sub && <p className="text-xs text-gray-400 mt-1">{sub}</p>}
+      {sub && <p className="text-sm text-gray-400 mt-1">{sub}</p>}
     </div>
   );
 }
@@ -729,11 +729,11 @@ function AnalyticsTab() {
           <div className="space-y-3">
             {denialEntries.map(([code, count]) => (
               <div key={code} className="space-y-1">
-                <div className="flex justify-between text-xs text-gray-500">
+                <div className="flex justify-between text-sm text-gray-500">
                   <span className="font-mono font-semibold text-blue-700">{code}</span>
                   <span>{count}</span>
                 </div>
-                <div className="h-2 bg-gray-100 rounded-full overflow-hidden">
+                <div className="h-2.5 bg-gray-100 rounded-full overflow-hidden">
                   <div
                     className="h-full bg-blue-500 rounded-full transition-all"
                     style={{ width: `${(count / maxDenial) * 100}%` }}
@@ -844,7 +844,7 @@ function ReferencePanel({ tab }: { tab: SidebarTab }) {
     <div className="flex flex-col flex-1 min-h-0">
       <div className="flex items-center gap-2 mb-4 shrink-0">
         <span className="text-blue-600">{activeMeta?.icon}</span>
-        <h2 className="text-lg font-bold text-gray-900">{activeMeta?.label}</h2>
+        <h2 className="text-xl font-bold text-gray-900">{activeMeta?.label}</h2>
       </div>
 
       {/* Data content */}
@@ -866,9 +866,9 @@ function ReferencePanel({ tab }: { tab: SidebarTab }) {
               were hand-crafted to cover a range of PA scenarios (active &amp; cancelled coverage, HMO/PPO/Medicare plans).
             </InfoBanner>
             <SidebarSearch value={patientSearch} onChange={setPatientSearch} placeholder="Search name, insurer, condition…" />
-            <p className="text-[10px] text-gray-400">{filteredPatients.length} of {patients.length} patients</p>
+            <p className="text-xs text-gray-500">{filteredPatients.length} of {patients.length} patients</p>
             <div className="flex-1 overflow-auto rounded-lg border border-gray-200">
-              <table className="text-[11px] border-collapse">
+              <table className="text-xs border-collapse">
                 <thead className="sticky top-0 bg-gray-50 z-10">
                   <tr>
                     {["Name", "DOB", "Sex", "Insurer", "Member ID", "Plan", "Active", "Conditions (ICD-10)", "Medications"].map((h) => (
@@ -931,7 +931,7 @@ function ReferencePanel({ tab }: { tab: SidebarTab }) {
                   <Loader2 className="w-4 h-4 animate-spin mr-1" /> Loading…
                 </div>
               )}
-              <table className="w-full text-[11px] border-collapse">
+              <table className="w-full text-xs border-collapse">
                 <thead className="sticky top-0 bg-gray-50 z-10">
                   <tr>
                     <th className="px-2.5 py-2 text-left font-semibold text-gray-500 uppercase tracking-wide border-b border-gray-200 w-20">Code</th>
@@ -973,9 +973,9 @@ function ReferencePanel({ tab }: { tab: SidebarTab }) {
               modifiers (LT/RT) — missing or incorrect codes are the <strong>#1 cause of claim denials</strong>.
             </InfoBanner>
             <SidebarSearch value={procSearch} onChange={setProcSearch} placeholder="Search code, description, category…" />
-            <p className="text-[10px] text-gray-400">{filteredProcs.length} of {procedures.length} procedures</p>
+            <p className="text-xs text-gray-500">{filteredProcs.length} of {procedures.length} procedures</p>
             <div className="flex-1 overflow-auto rounded-lg border border-gray-200">
-              <table className="w-full text-[11px] border-collapse">
+              <table className="w-full text-xs border-collapse">
                 <thead className="sticky top-0 bg-gray-50 z-10">
                   <tr>
                     {["Code", "Description", "Category", "Modifiers"].map((h) => (
@@ -1079,13 +1079,13 @@ function InfoBanner({
   children: React.ReactNode;
 }) {
   return (
-    <div className="flex gap-3 rounded-lg bg-blue-50 border border-blue-100 px-3.5 py-3 shrink-0">
+    <div className="flex gap-3 rounded-lg bg-blue-50 border border-blue-100 px-4 py-3.5 shrink-0">
       <Info className="w-4 h-4 text-blue-500 mt-0.5 shrink-0" />
       <div className="flex flex-col gap-1.5 min-w-0">
-        <span className="text-[10px] font-semibold text-blue-700 bg-blue-100 border border-blue-200 rounded-full px-2 py-0.5 w-fit">
+        <span className="text-xs font-semibold text-blue-700 bg-blue-100 border border-blue-200 rounded-full px-2 py-0.5 w-fit">
           {badge}
         </span>
-        <p className="text-[11px] text-gray-600 leading-relaxed">{children}</p>
+        <p className="text-sm text-gray-600 leading-relaxed">{children}</p>
         {links.length > 0 && (
           <div className="flex flex-wrap gap-x-3 gap-y-1 mt-0.5">
             {links.map(({ label, href }) => (
@@ -1094,7 +1094,7 @@ function InfoBanner({
                 href={href}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="text-[10px] text-blue-600 hover:text-blue-800 underline underline-offset-2 flex items-center gap-0.5"
+                className="text-xs text-blue-600 hover:text-blue-800 underline underline-offset-2 flex items-center gap-0.5"
               >
                 {label}
                 <ExternalLink className="w-2.5 h-2.5" />
@@ -1110,9 +1110,9 @@ function InfoBanner({
 function SidebarSearch({ value, onChange, placeholder }: { value: string; onChange: (v: string) => void; placeholder: string }) {
   return (
     <div className="relative shrink-0">
-      <Search className="absolute left-2.5 top-2.5 w-3.5 h-3.5 text-gray-400" />
+      <Search className="absolute left-2.5 top-3 w-3.5 h-3.5 text-gray-400" />
       <input
-        className="w-full pl-8 pr-3 py-2 text-xs rounded-lg border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder:text-gray-400"
+        className="w-full pl-8 pr-3 py-2.5 text-sm rounded-lg border border-gray-200 bg-gray-50 focus:outline-none focus:ring-2 focus:ring-blue-400 placeholder:text-gray-400"
         placeholder={placeholder}
         value={value}
         onChange={(e) => onChange(e.target.value)}
@@ -1134,9 +1134,9 @@ function PaRuleTable({
 }) {
   return (
     <div>
-      <p className="text-[10px] font-bold text-gray-500 uppercase tracking-wider mb-1.5">{title}</p>
+      <p className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-1.5">{title}</p>
       <div className="rounded-lg border border-gray-200 overflow-hidden">
-        <table className="w-full text-[11px] border-collapse">
+        <table className="w-full text-xs border-collapse">
           <thead className="bg-gray-50">
             <tr>
               {headers.map((h) => (
@@ -1193,7 +1193,7 @@ function LeftNav({ active, onSelect }: { active: SidebarTab | null; onSelect: (i
   return (
     <div className="flex flex-col w-60 min-w-[15rem] shrink-0 border-r border-gray-200 bg-white h-full">
       <div className="flex items-center justify-between px-4 py-3 border-b border-gray-100">
-        <span className="text-xs font-bold text-gray-500 uppercase tracking-wider">Reference Data</span>
+        <span className="text-sm font-bold text-gray-500 uppercase tracking-wider">Reference Data</span>
         <button
           onClick={() => setOpen(false)}
           className="p-1 rounded-lg hover:bg-gray-100 text-gray-400 transition-colors"
@@ -1221,7 +1221,7 @@ function LeftNav({ active, onSelect }: { active: SidebarTab | null; onSelect: (i
       </nav>
 
       <div className="mt-auto px-4 py-3 border-t border-gray-100">
-        <p className="text-[10px] text-gray-400 leading-relaxed">
+        <p className="text-xs text-gray-400 leading-relaxed">
           Select a category to view its data in the main panel for manual cross-referencing.
         </p>
       </div>
@@ -1246,14 +1246,14 @@ export default function HomePage() {
   return (
     <div className="h-screen bg-gray-50 text-gray-900 flex flex-col overflow-hidden">
       {/* Header */}
-      <header className="border-b border-gray-200 bg-white shadow-sm sticky top-0 z-10">
-        <div className="px-4 py-3 flex items-center gap-3">
-          <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-blue-600 shadow-sm">
+      <header className="border-b border-gray-200 bg-gradient-to-r from-white to-blue-50/60 shadow-md sticky top-0 z-10">
+        <div className="px-5 py-3.5 flex items-center gap-3">
+          <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-blue-600 shadow-md">
             <Heart className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="text-sm font-bold text-gray-900">Prior Authorization Automation</h1>
-            <p className="text-xs text-gray-400">Agentic workflow · LangGraph · OpenRouter · Qdrant</p>
+            <h1 className="text-base font-bold text-gray-900">Prior Auth Automation</h1>
+            <p className="text-sm text-gray-400">Agentic workflow · LangGraph · OpenRouter · Qdrant</p>
           </div>
           <div className="ml-auto">
             <Badge variant="success">Live</Badge>

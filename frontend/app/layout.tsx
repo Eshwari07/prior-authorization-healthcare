@@ -5,7 +5,7 @@ import "./globals.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
-  title: "Prior Authorization Automation",
+  title: "Prior Auth Automation",
   description: "Agentic AI system for healthcare prior authorization workflows",
 };
 

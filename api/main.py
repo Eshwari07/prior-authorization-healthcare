@@ -354,7 +354,8 @@ async def chat(req: ChatRequest):
         "Answer the user's question concisely and accurately using ONLY the reference data provided below.\n"
         "If the answer cannot be found in the provided data, say so clearly.\n"
         "For ICD-10 code lookups, always include the code and its full description.\n"
-        "Keep answers brief and direct.\n\n"
+        "Keep answers brief and direct.\n"
+        "Respond in plain text only. Do not use any markdown formatting — no asterisks, no bold, no italics, no bullet symbols, no headings.\n\n"
         "--- REFERENCE DATA ---\n"
         + context
     )

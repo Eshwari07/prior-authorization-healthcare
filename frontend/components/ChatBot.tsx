@@ -20,6 +20,16 @@ interface ChatApiMessage {
 
 // ─── Quick-start suggestion chips ─────────────────────────────────────────────
 
+function stripMarkdown(text: string): string {
+  return text
+    .replace(/\*\*(.+?)\*\*/g, "$1")
+    .replace(/\*(.+?)\*/g, "$1")
+    .replace(/__(.+?)__/g, "$1")
+    .replace(/_(.+?)_/g, "$1")
+    .replace(/^#{1,6}\s+/gm, "")
+    .replace(/`(.+?)`/g, "$1");
+}
+
 const SUGGESTIONS = [
   "What is the ICD code for Amebiasis, unspecified?",
   "Which patients have inactive coverage?",
@@ -129,7 +139,7 @@ export function ChatBot() {
       });
       if (!res.ok) throw new Error(`Server error ${res.status}`);
       const data = await res.json();
-      addMessage("assistant", data.reply ?? "No response received.");
+      addMessage("assistant", stripMarkdown(data.reply ?? "No response received."));
     } catch (err: unknown) {
       addMessage(
         "assistant",
@@ -170,8 +180,8 @@ export function ChatBot() {
                 <Bot className="w-4 h-4 text-white" />
               </div>
               <div>
-                <p className="text-sm font-semibold text-white">PA Assistant</p>
-                <p className="text-[10px] text-blue-100">Ask about codes, patients & runs</p>
+                <p className="text-base font-semibold text-white">PA Assistant</p>
+                <p className="text-xs text-blue-100">Ask about codes, patients & runs</p>
               </div>
             </div>
             <div className="flex items-center gap-1">
@@ -201,8 +211,8 @@ export function ChatBot() {
                   <Sparkles className="w-6 h-6 text-blue-500" />
                 </div>
                 <div>
-                  <p className="text-sm font-semibold text-gray-800">How can I help you?</p>
-                  <p className="text-xs text-gray-400 mt-0.5">
+                  <p className="text-base font-semibold text-gray-800">How can I help you?</p>
+                  <p className="text-sm text-gray-400 mt-0.5">
                     Ask about ICD-10 codes, patients, procedures, PA rules, or run history.
                   </p>
                 </div>
@@ -212,7 +222,7 @@ export function ChatBot() {
                     <button
                       key={s}
                       onClick={() => handleSuggestion(s)}
-                      className="text-left text-xs text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-100 rounded-xl px-3 py-2 transition-colors leading-snug"
+                      className="text-left text-sm text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-100 rounded-xl px-3 py-2 transition-colors leading-snug"
                     >
                       {s}
                     </button>
@@ -254,7 +264,7 @@ export function ChatBot() {
                 )}
               </button>
             </div>
-            <p className="text-[10px] text-gray-400 text-center mt-1.5">
+            <p className="text-xs text-gray-400 text-center mt-1.5">
               Powered by OpenRouter · answers from your reference data
             </p>
           </div>
