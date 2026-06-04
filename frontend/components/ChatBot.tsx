@@ -46,13 +46,13 @@ function MessageBubble({ msg }: { msg: Message }) {
       {/* Avatar */}
       <div
         className={`shrink-0 w-7 h-7 rounded-full flex items-center justify-center mt-0.5 ${
-          isUser ? "bg-blue-600" : "bg-gray-100 border border-gray-200"
+          isUser ? "bg-[#3a5ba0]" : "bg-slate-100 border border-slate-200"
         }`}
       >
         {isUser ? (
           <User className="w-3.5 h-3.5 text-white" />
         ) : (
-          <Bot className="w-3.5 h-3.5 text-blue-600" />
+          <Bot className="w-3.5 h-3.5 text-[#3a5ba0]" />
         )}
       </div>
 
@@ -60,10 +60,10 @@ function MessageBubble({ msg }: { msg: Message }) {
       <div
         className={`max-w-[80%] rounded-2xl px-3.5 py-2.5 text-sm leading-relaxed whitespace-pre-wrap break-words ${
           isUser
-            ? "bg-blue-600 text-white rounded-tr-sm"
+            ? "bg-[#3a5ba0] text-white rounded-tr-sm shadow-sm"
             : msg.error
             ? "bg-red-50 border border-red-200 text-red-700 rounded-tl-sm"
-            : "bg-gray-100 text-gray-800 rounded-tl-sm"
+            : "bg-slate-100 text-slate-800 rounded-tl-sm"
         }`}
       >
         {msg.content}
@@ -77,10 +77,10 @@ function MessageBubble({ msg }: { msg: Message }) {
 function TypingIndicator() {
   return (
     <div className="flex items-start gap-2">
-      <div className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center bg-gray-100 border border-gray-200">
-        <Bot className="w-3.5 h-3.5 text-blue-600" />
+      <div className="shrink-0 w-7 h-7 rounded-full flex items-center justify-center bg-slate-100 border border-slate-200">
+        <Bot className="w-3.5 h-3.5 text-[#3a5ba0]" />
       </div>
-      <div className="bg-gray-100 rounded-2xl rounded-tl-sm px-4 py-3 flex items-center gap-1">
+      <div className="bg-slate-100 rounded-2xl rounded-tl-sm px-4 py-3 flex items-center gap-1">
         <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce [animation-delay:-0.3s]" />
         <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce [animation-delay:-0.15s]" />
         <span className="w-1.5 h-1.5 rounded-full bg-gray-400 animate-bounce" />
@@ -174,7 +174,7 @@ export function ChatBot() {
       {open && (
         <div className="fixed bottom-20 right-6 z-50 w-[360px] h-[500px] flex flex-col bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
           {/* Header */}
-          <div className="flex items-center justify-between px-4 py-3 bg-blue-600 shrink-0">
+          <div className="flex items-center justify-between px-4 py-3 bg-[#3a5ba0] shrink-0">
             <div className="flex items-center gap-2">
               <div className="w-7 h-7 rounded-full bg-white/20 flex items-center justify-center">
                 <Bot className="w-4 h-4 text-white" />
@@ -207,8 +207,8 @@ export function ChatBot() {
           <div className="flex-1 overflow-y-auto px-4 py-3 space-y-3 min-h-0">
             {messages.length === 0 && !loading && (
               <div className="flex flex-col items-center text-center pt-4 pb-2 gap-3">
-                <div className="w-12 h-12 rounded-2xl bg-blue-50 border border-blue-100 flex items-center justify-center">
-                  <Sparkles className="w-6 h-6 text-blue-500" />
+                <div className="w-12 h-12 rounded-2xl bg-[#3a5ba0]/8 border border-[#3a5ba0]/15 flex items-center justify-center">
+                  <Sparkles className="w-6 h-6 text-[#3a5ba0]" />
                 </div>
                 <div>
                   <p className="text-base font-semibold text-gray-800">How can I help you?</p>
@@ -222,7 +222,7 @@ export function ChatBot() {
                     <button
                       key={s}
                       onClick={() => handleSuggestion(s)}
-                      className="text-left text-sm text-blue-700 bg-blue-50 hover:bg-blue-100 border border-blue-100 rounded-xl px-3 py-2 transition-colors leading-snug"
+                      className="text-left text-sm text-[#3a5ba0] bg-slate-50 hover:bg-[#3a5ba0]/8 border border-slate-200 hover:border-[#3a5ba0]/30 rounded-xl px-3 py-2 transition-all leading-snug shadow-sm"
                     >
                       {s}
                     </button>
@@ -241,11 +241,11 @@ export function ChatBot() {
 
           {/* Input */}
           <div className="px-3 pb-3 pt-2 border-t border-gray-100 shrink-0">
-            <div className="flex items-center gap-2 bg-gray-50 border border-gray-200 rounded-xl px-3 py-2 focus-within:border-blue-400 focus-within:ring-2 focus-within:ring-blue-100 transition-all">
+            <div className="flex items-center gap-2 bg-slate-50 border border-slate-200 rounded-xl px-3 py-2 focus-within:border-[#3a5ba0]/50 focus-within:ring-2 focus-within:ring-[#3a5ba0]/15 transition-all">
               <input
                 ref={inputRef}
                 type="text"
-                className="flex-1 bg-transparent text-sm text-gray-800 placeholder:text-gray-400 focus:outline-none"
+                className="flex-1 bg-transparent text-sm text-slate-800 placeholder:text-slate-400 focus:outline-none"
                 placeholder="Ask a question…"
                 value={input}
                 onChange={(e) => setInput(e.target.value)}
@@ -255,7 +255,7 @@ export function ChatBot() {
               <button
                 onClick={() => sendMessage(input)}
                 disabled={!input.trim() || loading}
-                className="p-1.5 rounded-lg bg-blue-600 hover:bg-blue-700 disabled:bg-gray-200 disabled:text-gray-400 text-white transition-colors shrink-0"
+                className="p-1.5 rounded-lg bg-[#f7c873] hover:bg-[#e6b85c] disabled:bg-gray-200 disabled:text-gray-400 text-[#1a2238] transition-colors shrink-0"
               >
                 {loading ? (
                   <Loader2 className="w-3.5 h-3.5 animate-spin" />
@@ -276,8 +276,8 @@ export function ChatBot() {
         onClick={() => setOpen((v) => !v)}
         className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 ${
           open
-            ? "bg-gray-700 hover:bg-gray-800 rotate-0"
-            : "bg-blue-600 hover:bg-blue-700 hover:scale-105"
+            ? "bg-[#1a2238] hover:bg-[#0f1520] rotate-0"
+            : "bg-[#3a5ba0] hover:bg-[#2d4a8a] hover:scale-105"
         }`}
         title={open ? "Close assistant" : "Open PA Assistant"}
       >

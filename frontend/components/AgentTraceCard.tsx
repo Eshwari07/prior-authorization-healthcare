@@ -49,46 +49,61 @@ function StatusBadge({ status }: { status: string }) {
 
 function ConfidenceBar({ value }: { value: number }) {
   const pct = Math.min(Math.max(value, 0), 1) * 100;
-  const color = pct >= 80 ? "bg-green-500" : pct >= 50 ? "bg-amber-400" : "bg-red-500";
+  const color = pct >= 80 ? "bg-emerald-500" : pct >= 50 ? "bg-amber-400" : "bg-red-400";
   return (
     <div className="mt-2">
-      <div className="flex justify-between text-sm text-gray-500 mb-1">
-        <span>Confidence</span>
-        <span>{pct.toFixed(0)}%</span>
+      <div className="flex justify-between text-xs text-slate-500 mb-1.5">
+        <span className="font-medium">Confidence</span>
+        <span className="font-bold text-slate-700">{pct.toFixed(0)}%</span>
       </div>
-      <div className="h-2 bg-gray-200 rounded-full overflow-hidden">
-        <div className={cn("h-full rounded-full transition-all", color)} style={{ width: `${pct}%` }} />
+      <div className="h-1.5 bg-slate-100 rounded-full overflow-hidden">
+        <div className={cn("h-full rounded-full transition-all duration-700", color)} style={{ width: `${pct}%` }} />
       </div>
     </div>
   );
 }
 
+const STATUS_BORDER: Record<string, string> = {
+  eligible: "border-l-emerald-400",
+  coded: "border-l-emerald-400",
+  approved: "border-l-emerald-400",
+  denied: "border-l-red-400",
+  ineligible: "border-l-red-400",
+  analyzed: "border-l-amber-400",
+  escalated: "border-l-amber-400",
+};
+
 export function AgentTraceCard({ step, index }: { step: TraceStep; index: number }) {
   const [open, setOpen] = useState(true);
   const meta = AGENT_META[step.agent] ?? { icon: <Clock className="w-4 h-4" />, label: step.agent };
   const details = step.details ?? {};
+  const borderColor = STATUS_BORDER[step.status] ?? "border-l-slate-300";
 
   return (
-    <div className="rounded-xl border border-gray-200 bg-white shadow-md overflow-hidden hover:shadow-lg transition-shadow">
+    <div className={`rounded-xl border border-slate-200 border-l-4 ${borderColor} bg-white shadow-sm overflow-hidden hover:shadow-md transition-all duration-200`}>
       <button
         onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-center justify-between px-5 py-4 hover:bg-gray-50 transition-colors"
+        className="w-full flex items-center justify-between px-4 py-3.5 hover:bg-slate-50/80 transition-colors"
       >
         <div className="flex items-center gap-3">
-          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-blue-100 text-blue-600">
+          {/* Step number */}
+          <span className="flex items-center justify-center w-6 h-6 rounded-full bg-slate-100 text-slate-500 text-xs font-bold shrink-0">
+            {index + 1}
+          </span>
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-[#3a5ba0]/10 text-[#3a5ba0]">
             {meta.icon}
           </span>
-          <span className="font-semibold text-gray-900 text-base">{meta.label}</span>
+          <span className="font-semibold text-slate-800">{meta.label}</span>
           <StatusBadge status={step.status} />
-          <span className="text-gray-500 text-sm hidden sm:block">{step.decision}</span>
+          <span className="text-slate-500 text-sm hidden sm:block truncate max-w-[200px]">{step.decision}</span>
         </div>
-        {open ? <ChevronUp className="w-4 h-4 text-gray-400" /> : <ChevronDown className="w-4 h-4 text-gray-400" />}
+        {open ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
       </button>
 
       {open && (
-        <div className="px-5 pb-5 space-y-3 border-t border-gray-100">
-          <p className="text-sm text-gray-700 mt-4">
-            <span className="text-gray-500 font-medium">Reasoning: </span>
+        <div className="px-5 pb-4 space-y-3 border-t border-slate-100">
+          <p className="text-sm text-slate-600 mt-3.5 leading-relaxed">
+            <span className="text-slate-400 font-medium">Reasoning: </span>
             {step.reasoning}
           </p>
 
@@ -130,7 +145,7 @@ export function AgentTraceCard({ step, index }: { step: TraceStep; index: number
           )}
 
           {step.data_used && step.data_used.length > 0 && (
-            <p className="text-sm text-gray-400">
+            <p className="text-xs text-slate-400 font-medium">
               Data consulted: {step.data_used.join(" · ")}
             </p>
           )}
@@ -155,13 +170,13 @@ function DetailRow({
 }) {
   return (
     <div className="flex flex-wrap gap-1.5 items-baseline">
-      <span className="text-sm text-gray-500 font-medium">{label}:</span>
+      <span className="text-xs text-slate-500 font-semibold uppercase tracking-wide">{label}:</span>
       <span
         className={cn(
           "text-sm",
-          mono && "font-mono bg-blue-50 px-1 rounded text-blue-700 border border-blue-100",
-          highlight === "error" && "text-red-600",
-          !mono && !highlight && "text-gray-700"
+          mono && "font-mono bg-[#3a5ba0]/8 px-1.5 py-0.5 rounded text-[#3a5ba0] border border-[#3a5ba0]/20",
+          highlight === "error" && "text-red-600 font-medium",
+          !mono && !highlight && "text-slate-700"
         )}
       >
         {value}

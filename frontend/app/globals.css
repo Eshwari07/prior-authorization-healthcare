@@ -4,22 +4,49 @@
 
 @layer base {
   :root {
-    --background: 210 20% 98%;
-    --foreground: 222 47% 11%;
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
-    --primary: 221 83% 53%;
-    --primary-foreground: 0 0% 100%;
-    --secondary: 210 40% 94%;
-    --secondary-foreground: 222 47% 11%;
-    --muted: 210 30% 96%;
-    --muted-foreground: 215 16% 47%;
-    --accent: 210 40% 94%;
-    --accent-foreground: 222 47% 11%;
-    --border: 214 32% 88%;
-    --input: 214 32% 88%;
-    --ring: 221 83% 53%;
+    --card: #e3eaf2;
+    --ring: #f7c873;
+    --input: #6ea3c1;
+    --muted: #e5e5df;
+    --accent: #6ea3c1;
+    --border: #b0b8c1;
     --radius: 0.5rem;
+    --popover: #fffbe6;
+    --primary: #3a5ba0;
+    --secondary: #f7c873;
+    --background: #f5f7fa;
+    --foreground: #1a2238;
+    --destructive: #2d1e2f;
+    --card-foreground: #1a2238;
+    --muted-foreground: #3a5ba0;
+    --accent-foreground: #fffbe6;
+    --popover-foreground: #1a2238;
+    --primary-foreground: #fffbe6;
+    --secondary-foreground: #1a2238;
+    --destructive-foreground: #fffbe6;
+  }
+
+  .dark {
+    --card: #23243a;
+    --ring: #ffe066;
+    --input: #3a5ba0;
+    --muted: #23243a;
+    --accent: #bccdf0;
+    --border: #2d2e3e;
+    --radius: 0.5rem;
+    --popover: #23243a;
+    --primary: #3a5ba0;
+    --secondary: #ffe066;
+    --background: #181a24;
+    --foreground: #e6eaf3;
+    --destructive: #a04a6c;
+    --card-foreground: #e6eaf3;
+    --muted-foreground: #7a88a1;
+    --accent-foreground: #181a24;
+    --popover-foreground: #ffe066;
+    --primary-foreground: #ffe066;
+    --secondary-foreground: #23243a;
+    --destructive-foreground: #ffe066;
   }
 }
 
@@ -30,4 +57,23 @@
   body {
     @apply bg-background text-foreground;
   }
+}
+
+@keyframes grid {
+  0% { transform: translateY(-50%); }
+  100% { transform: translateY(0); }
+}
+
+.animate-grid {
+  animation: grid 20s linear infinite;
+}
+
+@keyframes shimmer {
+  0% { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+
+.animate-shimmer {
+  background-size: 200% auto;
+  animation: shimmer 3s linear infinite;
 }
