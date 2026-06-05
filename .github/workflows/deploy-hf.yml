@@ -3,7 +3,20 @@ name: Sync backend to HF Spaces
 on:
   push:
     branches: [main]
+    # Only deploy when backend-relevant files change. Frontend/docs-only
+    # commits don't affect the HF API Space and pushing for them just
+    # burns through Hugging Face's rate limit (HTTP 429).
+    paths-ignore:
+      - "frontend/**"
+      - "**/*.md"
+      - ".gitignore"
   workflow_dispatch: {}
+
+# Cancel any in-progress deploy when a newer one starts, so we never
+# fire overlapping pushes at Hugging Face.
+concurrency:
+  group: hf-deploy
+  cancel-in-progress: true
 
 jobs:
   sync-to-hf:
@@ -24,4 +37,20 @@ jobs:
           git checkout --orphan hf-deploy
           git add -A
           git commit -m "Deploy ${GITHUB_SHA}"
-          git push --force "https://EshwariG:${HF_TOKEN}@huggingface.co/spaces/EshwariG/prior-auth-api" hf-deploy:main
+
+          remote="https://EshwariG:${HF_TOKEN}@huggingface.co/spaces/EshwariG/prior-auth-api"
+
+          # Retry the push with exponential backoff to ride out HF rate
+          # limiting (HTTP 429) and other transient errors.
+          attempt=1
+          max_attempts=5
+          until git push --force "$remote" hf-deploy:main; do
+            if [ "$attempt" -ge "$max_attempts" ]; then
+              echo "Push failed after ${max_attempts} attempts."
+              exit 1
+            fi
+            wait=$((attempt * 30))
+            echo "Push attempt ${attempt} failed (possibly HTTP 429). Retrying in ${wait}s..."
+            sleep "$wait"
+            attempt=$((attempt + 1))
+          done
