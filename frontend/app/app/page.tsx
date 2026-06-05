@@ -769,7 +769,7 @@ function ReferencePanel({ tab }: { tab: SidebarTab }) {
 
   if (tab === "patients") return (
     <div className="flex flex-col gap-3 h-full">
-      <InfoBanner badge="Synthetic Patients" links={[]}>
+      <InfoBanner badge="Synthetic Patients" links={[{ label: "Synthea Synthetic Patient Generator", href: "https://synthetichealth.github.io/synthea/" }]}>
         All 24 patient records are fully <strong>synthetic</strong> — generated in <strong>HL7 FHIR R4</strong> format. Zero PHI exposure.
       </InfoBanner>
       <SidebarSearch value={patientSearch} onChange={setPatientSearch} placeholder="Search name, insurer, condition…" />
