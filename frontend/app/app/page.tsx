@@ -8,8 +8,6 @@ import {
   Ban,
   BookOpen,
   CheckCircle,
-  ChevronLeft,
-  ChevronRight,
   ExternalLink,
   Eye,
   FileText,
@@ -32,7 +30,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { AgentTraceCard } from "@/components/AgentTraceCard";
 import { ChatBot } from "@/components/ChatBot";
 import { Badge } from "@/components/ui/badge";
-import { GooeyTabs } from "@/components/GooeyTabs";
+import { FolderTabs } from "@/components/FolderTabs";
+import NavHeader from "@/components/NavHeader";
 import { RippleButton } from "@/components/RippleButton";
 import { API_URL } from "@/lib/utils";
 
@@ -908,63 +907,24 @@ function ReferencePanel({ tab }: { tab: SidebarTab }) {
   return null;
 }
 
-// ─── Left Reference Nav ───────────────────────────────────────────────────────
+// ─── Reference Sub-Tabs ───────────────────────────────────────────────────────
 
-const REF_IDS: SidebarTab[] = ["patients", "icd10", "hcpcs", "pa-rules"];
-
-const REF_TABS: { id: SidebarTab; label: string; icon: React.ReactNode }[] = [
-  { id: "patients", label: "Patients", icon: <Users className="w-4 h-4" /> },
-  { id: "icd10", label: "ICD-10 Codes", icon: <BookOpen className="w-4 h-4" /> },
-  { id: "hcpcs", label: "HCPCS / CPT", icon: <Stethoscope className="w-4 h-4" /> },
-  { id: "pa-rules", label: "PA Rules", icon: <ShieldCheck className="w-4 h-4" /> },
+const TAB_CONTENT: {
+  id: SidebarTab;
+  label: string;
+  icon: React.ReactNode;
+  content: React.ReactNode;
+}[] = [
+  { id: "patients", label: "Patients", icon: <Users className="w-4 h-4" />, content: <ReferencePanel tab="patients" /> },
+  { id: "icd10", label: "ICD-10 Codes", icon: <BookOpen className="w-4 h-4" />, content: <ReferencePanel tab="icd10" /> },
+  { id: "hcpcs", label: "HCPCS / CPT", icon: <Stethoscope className="w-4 h-4" />, content: <ReferencePanel tab="hcpcs" /> },
+  { id: "pa-rules", label: "PA Rules", icon: <ShieldCheck className="w-4 h-4" />, content: <ReferencePanel tab="pa-rules" /> },
 ];
 
-function LeftNav({ active, onSelect }: { active: SidebarTab | null; onSelect: (id: SidebarTab) => void }) {
-  const [open, setOpen] = useState(true);
-
-  if (!open) return (
-    <div className="flex flex-col items-center py-4 gap-3 w-12 shrink-0 border-r border-slate-200 bg-white">
-      <button onClick={() => setOpen(true)} className="p-2 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors" title="Open reference panel">
-        <ChevronRight className="w-4 h-4" />
-      </button>
-      {REF_TABS.map((t) => (
-        <button key={t.id} onClick={() => { onSelect(t.id); setOpen(true); }}
-          className={`p-2 rounded-lg transition-colors ${active === t.id ? "bg-[#3a5ba0] text-white" : "text-slate-400 hover:bg-slate-100 hover:text-slate-700"}`}
-          title={t.label}
-        >
-          {t.icon}
-        </button>
-      ))}
-    </div>
-  );
-
+function ReferenceView() {
   return (
-    <div className="flex flex-col w-56 min-w-[14rem] shrink-0 border-r border-slate-200 bg-white h-full">
-      <div className="flex items-center justify-between px-4 py-3 border-b border-slate-100">
-        <span className="text-xs font-bold text-slate-400 uppercase tracking-wider">Reference Data</span>
-        <button onClick={() => setOpen(false)} className="p-1.5 rounded-lg hover:bg-slate-100 text-slate-400 hover:text-slate-600 transition-colors" title="Collapse">
-          <ChevronLeft className="w-4 h-4" />
-        </button>
-      </div>
-      <nav className="flex flex-col p-2 gap-0.5">
-        {REF_TABS.map((t) => (
-          <button
-            key={t.id}
-            onClick={() => onSelect(t.id)}
-            className={`flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium text-left transition-all duration-150 ${
-              active === t.id
-                ? "bg-[#3a5ba0] text-white shadow-sm border-r-2 border-[#f7c873]"
-                : "text-slate-600 hover:bg-slate-50 hover:text-[#3a5ba0] hover:translate-x-0.5"
-            }`}
-          >
-            <span className={active === t.id ? "text-white" : "text-slate-400"}>{t.icon}</span>
-            {t.label}
-          </button>
-        ))}
-      </nav>
-      <div className="mt-auto px-4 py-4 border-t border-slate-100">
-        <p className="text-xs text-slate-400 leading-relaxed">Real-time reference data served from the FastAPI backend.</p>
-      </div>
+    <div className="flex-1 min-h-0">
+      <FolderTabs tabs={TAB_CONTENT} defaultTab="patients" />
     </div>
   );
 }
@@ -973,75 +933,64 @@ function LeftNav({ active, onSelect }: { active: SidebarTab | null; onSelect: (i
 
 export default function AppPage() {
   const [view, setView] = useState<string>("submit");
-  const isRef = REF_IDS.includes(view as SidebarTab);
 
-  const workflowTabs = [
-    { id: "submit", label: "Submit PA", icon: <Send className="w-4 h-4" /> },
-    { id: "history", label: "History", icon: <History className="w-4 h-4" /> },
-    { id: "analytics", label: "Analytics", icon: <BarChart3 className="w-4 h-4" /> },
+  const navTabs = [
+    { id: "submit", label: "Submit PA" },
+    { id: "history", label: "History" },
+    { id: "analytics", label: "Analytics" },
+    { id: "reference", label: "Reference Data" },
   ];
 
   return (
     <div className="h-screen bg-[#f8fafc] text-slate-900 flex flex-col overflow-hidden">
       {/* ── Top Nav ── */}
-      <header className="bg-[#1a2238] border-b border-[#2d3558] shadow-sm sticky top-0 z-20">
-        <div className="px-5 py-3 flex items-center gap-3">
-          <div className="flex items-center justify-center w-9 h-9 rounded-xl bg-[#f7c873] shadow-sm shrink-0">
-            <Heart className="w-5 h-5 text-[#1a2238]" />
+      <header className="bg-gradient-to-r from-[#3a5ba0] via-[#4a6fb5] to-[#6ea3c1] border-b border-[#3a5ba0]/30 shadow-sm sticky top-0 z-20">
+        <div className="relative px-6 py-5 flex items-center gap-3">
+          <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-white shadow-sm shrink-0">
+            <Heart className="w-7 h-7 text-[#3a5ba0]" />
           </div>
-          <div className="min-w-0">
-            <h1 className="text-sm font-bold text-white truncate">Prior Authorization Workflow Automation</h1>
-            <p className="text-xs text-slate-400">Agentic workflow</p>
+          <div className="absolute left-1/2 -translate-x-1/2 text-center min-w-0 px-4 pointer-events-none">
+            <h1 className="text-2xl font-bold text-white truncate">Prior Authorization Workflow Automation</h1>
+            <p className="text-sm text-blue-100">Agentic workflow</p>
           </div>
           <div className="flex-1" />
           <Link
             href="/"
-            className="flex items-center gap-1.5 text-xs text-slate-400 hover:text-white transition-colors px-2.5 py-1.5 rounded-lg hover:bg-white/8"
+            className="flex items-center gap-1.5 text-sm text-blue-100 hover:text-white transition-colors px-2.5 py-1.5 rounded-lg hover:bg-white/10"
           >
-            <Home className="w-3.5 h-3.5" /> About
+            <Home className="w-4 h-4" /> About
           </Link>
           <Badge variant="success">Live</Badge>
         </div>
       </header>
 
-      {/* ── Body ── */}
-      <div className="flex flex-1 overflow-hidden">
-        <LeftNav active={isRef ? (view as SidebarTab) : null} onSelect={(id) => setView(id)} />
-
-        <div className="flex-1 flex flex-col overflow-hidden min-w-0">
-          {/* Workflow tab bar */}
-          <div className="px-6 pt-4 pb-0 shrink-0 border-b border-slate-200 bg-white shadow-sm">
-            <GooeyTabs
-              tabs={workflowTabs}
-              activeTab={isRef ? "" : view}
-              onTabChange={(id) => setView(id)}
-            />
-          </div>
-
-          {/* Main content */}
-          <main className="flex-1 min-h-0 px-6 py-5 flex flex-col">
-            {isRef ? (
-              <ReferencePanel tab={view as SidebarTab} />
-            ) : (
-              <div className="flex-1 overflow-y-auto">
-                <AnimatePresence mode="wait">
-                  <motion.div
-                    key={view}
-                    initial={{ opacity: 0, y: 8 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    exit={{ opacity: 0, y: -8 }}
-                    transition={{ duration: 0.2 }}
-                  >
-                    {view === "submit" && <SubmitTab />}
-                    {view === "history" && <HistoryTab />}
-                    {view === "analytics" && <AnalyticsTab />}
-                  </motion.div>
-                </AnimatePresence>
-              </div>
-            )}
-          </main>
-        </div>
+      {/* ── Nav Bar ── */}
+      <div className="shrink-0 flex justify-center px-5 py-4 border-b border-slate-200 bg-white/60">
+        <NavHeader tabs={navTabs} activeTab={view} onTabChange={setView} />
       </div>
+
+      {/* ── Body ── */}
+      <main className="flex-1 min-h-0 px-6 py-5 flex flex-col overflow-hidden">
+        {view === "reference" ? (
+          <ReferenceView />
+        ) : (
+          <div className="flex-1 min-h-0 overflow-y-auto rounded-3xl bg-slate-200 p-5 shadow-sm">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={view}
+                initial={{ opacity: 0, y: 8 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -8 }}
+                transition={{ duration: 0.2 }}
+              >
+                {view === "submit" && <SubmitTab />}
+                {view === "history" && <HistoryTab />}
+                {view === "analytics" && <AnalyticsTab />}
+              </motion.div>
+            </AnimatePresence>
+          </div>
+        )}
+      </main>
 
       <ChatBot />
     </div>
