@@ -77,3 +77,12 @@
   background-size: 200% auto;
   animation: shimmer 3s linear infinite;
 }
+
+/* Hide scrollbar but keep horizontal scroll on mobile tab strips */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

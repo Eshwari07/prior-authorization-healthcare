@@ -172,7 +172,7 @@ export function ChatBot() {
     <>
       {/* ── Chat panel ── */}
       {open && (
-        <div className="fixed bottom-20 right-6 z-50 w-[360px] h-[500px] flex flex-col bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
+        <div className="fixed bottom-20 right-4 sm:right-6 left-4 sm:left-auto z-50 w-auto sm:w-[360px] h-[70vh] sm:h-[500px] max-h-[600px] flex flex-col bg-white rounded-2xl shadow-2xl border border-gray-200 overflow-hidden">
           {/* Header */}
           <div className="flex items-center justify-between px-4 py-3 bg-[#3a5ba0] shrink-0">
             <div className="flex items-center gap-2">
@@ -274,7 +274,7 @@ export function ChatBot() {
       {/* ── Floating toggle button ── */}
       <button
         onClick={() => setOpen((v) => !v)}
-        className={`fixed bottom-6 right-6 z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 ${
+        className={`fixed bottom-6 right-4 sm:right-6 z-50 w-14 h-14 rounded-full shadow-lg flex items-center justify-center transition-all duration-200 ${
           open
             ? "bg-[#1a2238] hover:bg-[#0f1520] rotate-0"
             : "bg-[#3a5ba0] hover:bg-[#2d4a8a] hover:scale-105"

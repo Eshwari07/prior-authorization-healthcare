@@ -83,21 +83,21 @@ export function AgentTraceCard({ step, index }: { step: TraceStep; index: number
     <div className={`rounded-xl border border-slate-200 border-l-4 ${borderColor} bg-white shadow-sm overflow-hidden hover:shadow-md transition-all duration-200`}>
       <button
         onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-center justify-between px-4 py-3.5 hover:bg-slate-50/80 transition-colors"
+        className="w-full flex items-center justify-between gap-2 px-3 sm:px-4 py-3.5 hover:bg-slate-50/80 transition-colors"
       >
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-wrap">
           {/* Step number */}
           <span className="flex items-center justify-center w-6 h-6 rounded-full bg-slate-100 text-slate-500 text-xs font-bold shrink-0">
             {index + 1}
           </span>
-          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-[#3a5ba0]/10 text-[#3a5ba0]">
+          <span className="flex items-center justify-center w-8 h-8 rounded-lg bg-[#3a5ba0]/10 text-[#3a5ba0] shrink-0">
             {meta.icon}
           </span>
-          <span className="font-semibold text-slate-800">{meta.label}</span>
+          <span className="font-semibold text-slate-800 truncate">{meta.label}</span>
           <StatusBadge status={step.status} />
-          <span className="text-slate-500 text-sm hidden sm:block truncate max-w-[200px]">{step.decision}</span>
+          <span className="text-slate-500 text-sm hidden md:block truncate max-w-[200px]">{step.decision}</span>
         </div>
-        {open ? <ChevronUp className="w-4 h-4 text-slate-400" /> : <ChevronDown className="w-4 h-4 text-slate-400" />}
+        {open ? <ChevronUp className="w-4 h-4 text-slate-400 shrink-0" /> : <ChevronDown className="w-4 h-4 text-slate-400 shrink-0" />}
       </button>
 
       {open && (

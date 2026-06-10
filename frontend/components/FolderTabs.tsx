@@ -24,7 +24,7 @@ export function FolderTabs({ tabs, defaultTab }: FolderTabsProps) {
   return (
     <div className="flex h-full min-h-0 flex-col">
       {/* ── Tab strip ── */}
-      <div className="relative z-10 flex items-end justify-center gap-1">
+      <div className="relative z-10 flex items-end justify-start sm:justify-center gap-1 overflow-x-auto no-scrollbar">
         {tabs.map((tab) => {
           const isActive = tab.id === activeTab;
           return (
@@ -32,7 +32,7 @@ export function FolderTabs({ tabs, defaultTab }: FolderTabsProps) {
               key={tab.id}
               type="button"
               onClick={() => setActiveTab(tab.id)}
-              className="relative px-6 py-3 focus:outline-none"
+              className="relative px-3 sm:px-6 py-2.5 sm:py-3 focus:outline-none shrink-0"
             >
               {isActive && (
                 <motion.span
@@ -42,7 +42,7 @@ export function FolderTabs({ tabs, defaultTab }: FolderTabsProps) {
                 />
               )}
               <span
-                className={`relative z-10 flex items-center gap-2 text-sm uppercase tracking-wide transition-colors ${
+                className={`relative z-10 flex items-center gap-1.5 sm:gap-2 text-xs sm:text-sm uppercase tracking-wide whitespace-nowrap transition-colors ${
                   isActive
                     ? "font-semibold text-slate-900"
                     : "font-medium text-slate-400 hover:text-slate-600"
@@ -63,7 +63,7 @@ export function FolderTabs({ tabs, defaultTab }: FolderTabsProps) {
       </div>
 
       {/* ── Folder body ── */}
-      <div className="relative z-0 flex-1 min-h-0 rounded-3xl bg-slate-200 p-5 shadow-sm">
+      <div className="relative z-0 flex-1 min-h-0 rounded-2xl sm:rounded-3xl bg-slate-200 p-3 sm:p-5 shadow-sm">
         <AnimatePresence mode="wait">
           <motion.div
             key={activeTab}

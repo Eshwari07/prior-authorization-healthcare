@@ -316,7 +316,7 @@ function SubmitTab() {
   return (
     <div className="space-y-5">
       {/* Form card */}
-      <div className="rounded-xl border border-slate-200 bg-white p-6 shadow-sm">
+      <div className="rounded-xl border border-slate-200 bg-white p-4 sm:p-6 shadow-sm">
         <h2 className="text-base font-bold text-slate-800 mb-5 flex items-center gap-2">
           <ShieldCheck className="w-4 h-4 text-[#3a5ba0]" /> New PA Request
         </h2>
@@ -523,8 +523,8 @@ function HistoryTab() {
   return (
     <>
       {reportRun && <RunReportModal run={reportRun} onClose={() => setReportRun(null)} />}
-      <div className="rounded-xl border border-slate-200 overflow-hidden shadow-sm">
-        <table className="w-full text-sm">
+      <div className="rounded-xl border border-slate-200 overflow-x-auto shadow-sm">
+        <table className="w-full text-sm min-w-[820px]">
           <thead>
             <tr className="bg-slate-50 border-b border-slate-200">
               {headers.map((h) => (
@@ -945,36 +945,36 @@ export default function AppPage() {
     <div className="h-screen bg-[#f8fafc] text-slate-900 flex flex-col overflow-hidden">
       {/* ── Top Nav ── */}
       <header className="bg-gradient-to-r from-[#3a5ba0] via-[#4a6fb5] to-[#6ea3c1] border-b border-[#3a5ba0]/30 shadow-sm sticky top-0 z-20">
-        <div className="relative px-6 py-5 flex items-center gap-3">
-          <div className="flex items-center justify-center w-12 h-12 rounded-xl bg-white shadow-sm shrink-0">
-            <Heart className="w-7 h-7 text-[#3a5ba0]" />
+        <div className="relative px-3 sm:px-6 py-3 sm:py-5 flex items-center gap-2 sm:gap-3">
+          <div className="flex items-center justify-center w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-white shadow-sm shrink-0">
+            <Heart className="w-6 h-6 sm:w-7 sm:h-7 text-[#3a5ba0]" />
           </div>
-          <div className="absolute left-1/2 -translate-x-1/2 text-center min-w-0 px-4 pointer-events-none">
-            <h1 className="text-2xl font-bold text-white truncate">Prior Authorization Workflow Automation</h1>
-            <p className="text-sm text-blue-100">Agentic workflow</p>
+          <div className="min-w-0 flex-1 md:flex-none md:absolute md:left-1/2 md:-translate-x-1/2 md:text-center md:px-4 md:pointer-events-none">
+            <h1 className="text-sm sm:text-lg md:text-2xl font-bold text-white truncate">Prior Authorization Workflow Automation</h1>
+            <p className="hidden sm:block text-sm text-blue-100">Agentic workflow</p>
           </div>
-          <div className="flex-1" />
+          <div className="hidden md:block flex-1" />
           <Link
             href="/"
-            className="flex items-center gap-1.5 text-sm text-blue-100 hover:text-white transition-colors px-2.5 py-1.5 rounded-lg hover:bg-white/10"
+            className="flex items-center gap-1.5 text-sm text-blue-100 hover:text-white transition-colors px-2 sm:px-2.5 py-1.5 rounded-lg hover:bg-white/10 shrink-0"
           >
-            <Home className="w-4 h-4" /> About
+            <Home className="w-4 h-4" /> <span className="hidden sm:inline">About</span>
           </Link>
-          <Badge variant="success">Live</Badge>
+          <Badge variant="success" className="hidden sm:inline-flex shrink-0">Live</Badge>
         </div>
       </header>
 
       {/* ── Nav Bar ── */}
-      <div className="shrink-0 flex justify-center px-5 py-4 border-b border-slate-200 bg-white/60">
+      <div className="shrink-0 flex justify-center px-3 sm:px-5 py-3 sm:py-4 border-b border-slate-200 bg-white/60 overflow-x-auto">
         <NavHeader tabs={navTabs} activeTab={view} onTabChange={setView} />
       </div>
 
       {/* ── Body ── */}
-      <main className="flex-1 min-h-0 px-6 py-5 flex flex-col overflow-hidden">
+      <main className="flex-1 min-h-0 px-3 sm:px-6 py-4 sm:py-5 flex flex-col overflow-hidden">
         {view === "reference" ? (
           <ReferenceView />
         ) : (
-          <div className="flex-1 min-h-0 overflow-y-auto rounded-3xl bg-slate-200 p-5 shadow-sm">
+          <div className="flex-1 min-h-0 overflow-y-auto rounded-2xl sm:rounded-3xl bg-slate-200 p-3 sm:p-5 shadow-sm">
             <AnimatePresence mode="wait">
               <motion.div
                 key={view}
