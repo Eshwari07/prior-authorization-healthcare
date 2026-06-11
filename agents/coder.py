@@ -1,4 +1,4 @@
-"""Agent 2 — Prior Auth Coder (Model A + Qdrant RAG).
+"""Agent 2 — Prior Auth Coder (fast Foundry model + Foundry IQ RAG).
 
 Maps the plain-English procedure to a CPT/HCPCS code via semantic search, selects
 supporting ICD-10 diagnosis codes from the patient's active conditions, and
@@ -7,8 +7,7 @@ generates a clinical justification. Returns an AgentDecision with reasoning.
 from __future__ import annotations
 
 from graph.state import AgentDecision
-from utils import data_loader, llm_client
-from vector_store import qdrant_store
+from utils import data_loader, llm_client, retrieval
 
 
 def run(state: dict) -> dict:
@@ -17,12 +16,12 @@ def run(state: dict) -> dict:
     conditions = context.get("conditions", [])
 
     # 1. Semantic search for candidate procedure codes
-    cpt_candidates = qdrant_store.search_procedures(procedure_request, top_k=5)
+    cpt_candidates = retrieval.search_procedures(procedure_request, top_k=5)
 
     # 2. Semantic search for supporting ICD-10 codes (seeded by patient conditions)
     condition_text = " ".join(c["display"] for c in conditions) or procedure_request
     icd_query = f"{procedure_request}. Patient conditions: {condition_text}"
-    icd_candidates = qdrant_store.search_icd10(icd_query, top_k=10)
+    icd_candidates = retrieval.search_icd10(icd_query, top_k=10)
 
     patient_condition_codes = [
         {"code": c["code"], "description": c["display"]} for c in conditions
@@ -67,7 +66,7 @@ Respond ONLY with JSON:
             "status": "escalated",
             "decision": "Coding failed",
             "reasoning": f"Could not determine codes: {exc}",
-            "data_used": ["Qdrant procedure + ICD-10 collections"],
+            "data_used": [f"{retrieval.provider_label()} (procedure + ICD-10)"],
             "confidence": 0.0,
             "details": {},
         }
@@ -105,8 +104,8 @@ Respond ONLY with JSON:
             f"Top semantic match score: {top_score:.2f}."
         ),
         "data_used": [
-            "Qdrant procedure code collection (RAG)",
-            "Qdrant ICD-10 collection (RAG)",
+            f"{retrieval.provider_label()} — procedure codes (RAG)",
+            f"{retrieval.provider_label()} — ICD-10 codes (RAG)",
             "Patient active conditions",
         ],
         "confidence": round(coding_result["confidence"], 2),
@@ -115,6 +114,10 @@ Respond ONLY with JSON:
             "primary_icd10": coding_result["primary_icd10"],
             "secondary_icd10": coding_result["secondary_icd10"],
             "clinical_justification": coding_result["clinical_justification"],
+            "citations": [
+                c["citation"] for c in (cpt_candidates[:1] + icd_candidates[:3])
+                if c.get("citation")
+            ],
         },
     }
     return {"coding_result": coding_result, "agent_trace": [decision]}

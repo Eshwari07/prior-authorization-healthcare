@@ -12,6 +12,7 @@ import {
   XCircle,
   AlertTriangle,
   Clock,
+  Quote,
 } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { cn } from "@/lib/utils";
@@ -83,7 +84,9 @@ export function AgentTraceCard({ step, index }: { step: TraceStep; index: number
     <div className={`rounded-xl border border-slate-200 border-l-4 ${borderColor} bg-white shadow-sm overflow-hidden hover:shadow-md transition-all duration-200`}>
       <button
         onClick={() => setOpen((o) => !o)}
-        className="w-full flex items-center justify-between gap-2 px-3 sm:px-4 py-3.5 hover:bg-slate-50/80 transition-colors"
+        aria-expanded={open}
+        aria-label={`${open ? "Collapse" : "Expand"} ${meta.label} step details`}
+        className="w-full flex items-center justify-between gap-2 px-3 sm:px-4 py-3.5 hover:bg-slate-50/80 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[#3a5ba0]/50"
       >
         <div className="flex items-center gap-2 sm:gap-3 min-w-0 flex-wrap">
           {/* Step number */}
@@ -141,6 +144,25 @@ export function AgentTraceCard({ step, index }: { step: TraceStep; index: number
                   <p className="text-sm text-gray-500 italic">{details.clinical_justification as string}</p>
                 )}
               </div>
+            </div>
+          )}
+
+          {Array.isArray(details.citations) && (details.citations as string[]).length > 0 && (
+            <div className="mt-2 rounded-lg bg-[#3a5ba0]/5 border border-[#3a5ba0]/15 px-3 py-2.5">
+              <div className="flex items-center gap-1.5 mb-1.5">
+                <Quote className="w-3.5 h-3.5 text-[#3a5ba0]" />
+                <span className="text-xs font-semibold uppercase tracking-wide text-[#3a5ba0]">
+                  Grounded sources
+                </span>
+              </div>
+              <ul className="space-y-1">
+                {(details.citations as string[]).map((c, i) => (
+                  <li key={i} className="text-xs text-slate-600 leading-relaxed flex gap-1.5">
+                    <span className="text-[#3a5ba0]/60 shrink-0">[{i + 1}]</span>
+                    <span>{c}</span>
+                  </li>
+                ))}
+              </ul>
             </div>
           )}
 

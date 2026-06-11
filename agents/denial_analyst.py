@@ -1,4 +1,4 @@
-"""Agent 4 — Denial Analyst (Model B + Qdrant RAG over denial history).
+"""Agent 4 — Denial Analyst (Foundry reasoning model + Foundry IQ RAG over denial history).
 
 The core agentic component. On denial, it diagnoses the root cause using the
 denial code plus RAG over similar past denials, then either corrects the coding
@@ -8,8 +8,7 @@ exclusion) generates an appeal letter and escalates.
 from __future__ import annotations
 
 from graph.state import AgentDecision
-from utils import data_loader, llm_client
-from vector_store import qdrant_store
+from utils import data_loader, llm_client, retrieval
 
 
 def _generate_appeal_letter(context: dict, coding: dict, pa_request: dict) -> str:
@@ -42,7 +41,7 @@ def run(state: dict) -> dict:
     denial_reason = pa_request.get("denial_reason", "")
 
     # RAG: find similar resolved denials
-    similar = qdrant_store.search_denials(
+    similar = retrieval.search_denials(
         f"Denial {denial_code} on {coding['cpt_code']}: {denial_reason}", top_k=5
     )
     similar_brief = [
@@ -155,12 +154,13 @@ Respond ONLY with JSON:
             ),
             "data_used": [
                 f"Denial code reference ({denial_code})",
-                "Qdrant denial-history RAG",
+                f"{retrieval.provider_label()} — denial history (RAG)",
             ],
             "confidence": round(float(data.get("confidence", 0.6)), 2),
             "details": {
                 "root_cause": data.get("root_cause"),
                 "similar_cases": similar_brief[:3],
+                "citations": [s["citation"] for s in similar[:3] if s.get("citation")],
             },
         }
         return {
@@ -182,7 +182,7 @@ Respond ONLY with JSON:
         ),
         "data_used": [
             f"Denial code reference ({denial_code})",
-            "Qdrant denial-history RAG",
+            f"{retrieval.provider_label()} — denial history (RAG)",
             "Patient active conditions",
         ],
         "confidence": round(float(data.get("confidence", 0.7)), 2),
@@ -190,6 +190,7 @@ Respond ONLY with JSON:
             "root_cause": data.get("root_cause"),
             "correction": correction_summary,
             "similar_cases": similar_brief[:3],
+            "citations": [s["citation"] for s in similar[:3] if s.get("citation")],
         },
     }
     return {

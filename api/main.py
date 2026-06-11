@@ -89,6 +89,14 @@ def health():
     return {"status": "ok"}
 
 
+@app.get("/api/status")
+def status():
+    """Effective providers + recent fallback events (for the reliability banner)."""
+    from utils import runtime_status
+
+    return runtime_status.snapshot()
+
+
 @app.get("/api/patients")
 def get_patients():
     patients = list_patients(config.PATIENTS_DIR)
@@ -373,9 +381,16 @@ async def chat(req: ChatRequest):
             llm = get_model_a(temperature=0.1)
             resp = llm.invoke(messages)
             return resp.content
-        except Exception:
+        except Exception as primary_exc:
             try:
                 resp = get_fallback(temperature=0.1).invoke(messages)
+                from utils import runtime_status
+
+                runtime_status.record_fallback(
+                    "llm",
+                    f"{config.LLM_PROVIDER} chat model failed ({primary_exc}); "
+                    f"used OpenRouter fallback.",
+                )
                 return resp.content
             except Exception as exc:
                 raise RuntimeError(str(exc)) from exc

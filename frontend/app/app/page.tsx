@@ -33,6 +33,7 @@ import { Badge } from "@/components/ui/badge";
 import { FolderTabs } from "@/components/FolderTabs";
 import NavHeader from "@/components/NavHeader";
 import { RippleButton } from "@/components/RippleButton";
+import { ReliabilityBanner } from "@/components/ReliabilityBanner";
 import { API_URL } from "@/lib/utils";
 
 // ─── Types ────────────────────────────────────────────────────────────────────
@@ -963,6 +964,9 @@ export default function AppPage() {
           <Badge variant="success" className="hidden sm:inline-flex shrink-0">Live</Badge>
         </div>
       </header>
+
+      {/* ── Reliability banner (shows only when a provider fallback occurs) ── */}
+      <ReliabilityBanner />
 
       {/* ── Nav Bar ── */}
       <div className="shrink-0 flex justify-center px-3 sm:px-5 py-3 sm:py-4 border-b border-slate-200 bg-white/60 overflow-x-auto">

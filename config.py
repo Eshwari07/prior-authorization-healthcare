@@ -25,16 +25,38 @@ def _get(key: str, default: str | None = None) -> str | None:
     return os.getenv(key, default)
 
 
-# OpenRouter
+# ─── Provider selection ───────────────────────────────────────
+# LLM_PROVIDER: "foundry" (Azure AI Foundry) or "openrouter".
+# RETRIEVAL_PROVIDER: "foundry_iq" (Azure AI Search) or "qdrant".
+LLM_PROVIDER = _get("LLM_PROVIDER", "openrouter").lower()
+RETRIEVAL_PROVIDER = _get("RETRIEVAL_PROVIDER", "qdrant").lower()
+
+# OpenRouter (primary when LLM_PROVIDER=openrouter; always the fallback path)
 OPENROUTER_API_KEY = _get("OPENROUTER_API_KEY")
 OPENROUTER_BASE_URL = "https://openrouter.ai/api/v1"
 OPENROUTER_MODEL_A = _get("OPENROUTER_MODEL_A", "")
 OPENROUTER_MODEL_B = _get("OPENROUTER_MODEL_B", "")
 OPENROUTER_FALLBACK = _get("OPENROUTER_FALLBACK", "nvidia/nemotron-3-super-120b-a12b:free")
 
+# Azure AI Foundry (Azure OpenAI v1, OpenAI-compatible endpoint)
+AZURE_OPENAI_ENDPOINT = _get("AZURE_OPENAI_ENDPOINT")
+AZURE_OPENAI_API_KEY = _get("AZURE_OPENAI_API_KEY")
+AZURE_OPENAI_PROJECT_ENDPOINT = _get("AZURE_OPENAI_PROJECT_ENDPOINT")
+# Deployment names created in the Foundry project. Fast can equal reasoning
+# until a dedicated gpt-4o-mini deployment exists.
+AZURE_MODEL_FAST = _get("AZURE_MODEL_FAST", "gpt-4o")
+AZURE_MODEL_REASONING = _get("AZURE_MODEL_REASONING", "gpt-4o")
+
 # Qdrant
 QDRANT_URL = _get("QDRANT_URL")
 QDRANT_API_KEY = _get("QDRANT_API_KEY")
+
+# Azure AI Search (backs Foundry IQ knowledge retrieval)
+AZURE_SEARCH_ENDPOINT = _get("AZURE_SEARCH_ENDPOINT")
+AZURE_SEARCH_KEY = _get("AZURE_SEARCH_KEY")
+SEARCH_INDEX_HCPCS = _get("SEARCH_INDEX_HCPCS", "pa-procedures")
+SEARCH_INDEX_ICD10 = _get("SEARCH_INDEX_ICD10", "pa-icd10")
+SEARCH_INDEX_DENIALS = _get("SEARCH_INDEX_DENIALS", "pa-denials")
 
 # Neon PostgreSQL
 NEON_DATABASE_URL = _get("NEON_DATABASE_URL")

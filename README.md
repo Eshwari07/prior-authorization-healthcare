@@ -12,9 +12,11 @@ pinned: false
 
 An agentic system that automates the US healthcare **prior authorization (PA)** workflow end-to-end: it verifies patient eligibility, maps the procedure to billing codes, submits the request to a payer, and — when denied — **reasons about the denial, corrects its own submission, and retries**. Every agent decision is shown transparently in a modern Next.js UI with live streaming.
 
-Built with **LangGraph** (multi-agent orchestration), **OpenRouter** (LLMs), **Qdrant Cloud** (vector RAG), and **Neon** (PostgreSQL). Frontend deploys to **Vercel**, backend to **Hugging Face Spaces**.
+Built with **LangGraph** (multi-agent orchestration), **Microsoft AI Foundry** (LLM reasoning), and **Microsoft Foundry IQ** (agentic, cited knowledge retrieval over ICD-10 / HCPCS / PA rules / denial history), with **Neon** (PostgreSQL) for run persistence. A provider-pluggable layer keeps **OpenRouter** (LLM) and **Qdrant Cloud** (retrieval) as automatic fallbacks for resilience. Frontend deploys to **Vercel**, backend to **Hugging Face Spaces**.
 
-> **New:** Floating **PA Assistant chatbot** (bottom-right) answers natural-language questions about ICD-10 codes, patients, procedures, PA rules, and run history — powered by OpenRouter and grounded in the app's own reference data.
+> **Microsoft Agents League — Reasoning Agents track.** This project integrates the **Foundry IQ** intelligence layer for grounded, citation-backed retrieval, satisfying the contest's Microsoft IQ requirement. See [Microsoft IQ Integration](#microsoft-iq-integration).
+
+> **New:** Floating **PA Assistant chatbot** (bottom-right) answers natural-language questions about ICD-10 codes, patients, procedures, PA rules, and run history — powered by Microsoft AI Foundry and grounded in the app's own reference data.
 
 ---
 
@@ -25,6 +27,53 @@ A simple automation stops at a denial. This system runs a **denial → root-caus
 ---
 
 ## Architecture
+
+```mermaid
+flowchart TB
+    User([Clinician / Biller])
+
+    subgraph FE["Frontend — Next.js 14 on Vercel"]
+        UI["PA Workflow UI<br/>+ PA Assistant chatbot<br/>+ Reliability banner"]
+    end
+
+    subgraph BE["Backend — FastAPI on Hugging Face Spaces"]
+        API["REST + SSE streaming API"]
+        subgraph GRAPH["LangGraph StateGraph"]
+            A1["Agent 1<br/>Eligibility Verifier"]
+            A2["Agent 2<br/>Prior Auth Coder"]
+            A3["Agent 3<br/>PA Submitter"]
+            A4["Agent 4<br/>Denial Analyst"]
+            A1 --> A2 --> A3
+            A3 -- denied --> A4
+            A4 -- retry --> A3
+            A4 -- escalate --> ESC["Appeal letter"]
+        end
+        PAYER["Deterministic Mock Payer"]
+    end
+
+    subgraph MSFT["Microsoft AI Foundry"]
+        FND["Foundry models<br/>gpt-4o · gpt-4o-mini<br/>(LLM reasoning)"]
+        IQ["Foundry IQ — Azure AI Search<br/>ICD-10 · HCPCS · PA rules · denials<br/>(cited, grounded retrieval)"]
+    end
+
+    subgraph FB["Automatic fallbacks (resilience)"]
+        OR["OpenRouter (LLM)"]
+        QD["Qdrant Cloud (retrieval)"]
+    end
+
+    NEON[("Neon PostgreSQL<br/>run history")]
+
+    User --> UI
+    UI <-->|HTTP / SSE| API
+    API --> GRAPH
+    A1 & A2 & A3 & A4 -->|reasoning| FND
+    A2 & A4 -->|grounded RAG + citations| IQ
+    A3 --> PAYER
+    GRAPH --> NEON
+    FND -. on failure .-> OR
+    IQ -. on failure .-> QD
+    UI -.->|/api/status| API
+```
 
 ```
   Next.js Frontend (frontend/)          FastAPI Backend (api/)
@@ -49,23 +98,50 @@ A simple automation stops at a denial. This system runs a **denial → root-caus
 | Component | Tech |
 |---|---|
 | Orchestration | LangGraph |
-| LLMs | OpenRouter — Model A (fast), Model B (reasoning), free fallback |
+| LLMs (primary) | **Microsoft AI Foundry** — `gpt-4o` (reasoning), `gpt-4o-mini` (fast) |
+| LLMs (fallback) | OpenRouter — Model A (fast), Model B (reasoning), free fallback |
+| Knowledge retrieval (primary) | **Microsoft Foundry IQ** (Azure AI Search) — cited, grounded RAG |
+| Knowledge retrieval (fallback) | Qdrant Cloud |
 | Embeddings | sentence-transformers `all-MiniLM-L6-v2` (local, free) |
-| Vector store / RAG | Qdrant Cloud |
 | Database | Neon (serverless PostgreSQL) |
 | Frontend | Next.js 14 + Tailwind CSS + Lucide icons |
 | Frontend host | Vercel (free) |
 | Backend API | FastAPI + uvicorn (SSE streaming) |
 | Backend host | Hugging Face Spaces — Docker (free, 16GB RAM) |
 | Mock payer | Deterministic inline Python module |
-| PA Assistant chatbot | OpenRouter Model A + context from all reference data & run history |
+| PA Assistant chatbot | Foundry fast model + context from all reference data & run history |
 
 ### The 4 Agents
 
 1. **Eligibility Verifier** (Model A) — parses the patient FHIR bundle, confirms active coverage, decides whether PA is required. Early-exits on *patient not found*, *inactive coverage*, or *no PA required*.
-2. **Prior Auth Coder** (Model A + Qdrant RAG) — maps the plain-English procedure to a CPT/HCPCS code and selects supporting ICD-10 diagnoses, avoiding vague symptom codes.
-3. **PA Submitter** (Model B) — assembles the request and submits to the deterministic mock payer.
-4. **Denial Analyst** (Model B + Qdrant RAG over denial history) — diagnoses the denial root cause, corrects the coding and retries, or generates an appeal letter and escalates.
+2. **Prior Auth Coder** (fast Foundry model + Foundry IQ RAG) — maps the plain-English procedure to a CPT/HCPCS code and selects supporting ICD-10 diagnoses, avoiding vague symptom codes; cites the retrieved sources.
+3. **PA Submitter** (Foundry reasoning model) — assembles the request and submits to the deterministic mock payer.
+4. **Denial Analyst** (Foundry reasoning model + Foundry IQ RAG over denial history) — diagnoses the denial root cause, corrects the coding and retries, or generates an appeal letter and escalates; cites the precedent denials it relied on.
+
+---
+
+## Microsoft IQ Integration
+
+This project integrates **Foundry IQ**, Microsoft AI Foundry's agentic knowledge-retrieval layer, to ground every coding and denial-analysis decision in cited source data and reduce hallucination:
+
+- **Coder agent** retrieves candidate CPT/HCPCS and ICD-10 codes from a Foundry IQ knowledge base (Azure AI Search) and records the **grounded sources** that justified the selection.
+- **Denial Analyst agent** retrieves similar resolved denials from the same layer, citing the precedent that informed its correction.
+- Each agent step surfaces a **"Grounded sources"** panel in the UI, making the reasoning auditable — directly supporting the Reliability & Safety criterion.
+
+The layer is selected at runtime via two env switches, so the system degrades gracefully to OpenRouter + Qdrant if Azure is unavailable:
+
+| Switch | `foundry` / `foundry_iq` (primary) | Fallback |
+|---|---|---|
+| `LLM_PROVIDER` | Microsoft AI Foundry | `openrouter` |
+| `RETRIEVAL_PROVIDER` | `foundry_iq` (Azure AI Search) | `qdrant` |
+
+---
+
+## Reliability & Accessibility
+
+- **Transparent degradation** — every automatic fallback (Foundry → OpenRouter, Foundry IQ → Qdrant) is recorded server-side (`utils/runtime_status.py`) and exposed at `GET /api/status`. The UI polls this and shows an accessible **reliability banner** (`role="status"`, `aria-live="polite"`) so users always know when results came from a fallback provider — results stay valid, the system stays online.
+- **Graceful retrieval fallback** — `utils/retrieval.py` catches Foundry IQ errors and transparently re-runs the query against Qdrant.
+- **Accessibility** — keyboard-focusable agent-trace steps with `aria-expanded`/`aria-label`, visible focus rings, and dismissible status messaging.
 
 ---
 
@@ -78,7 +154,7 @@ A floating chat button (`💬`) in the bottom-right corner opens a conversationa
 - *"Does MRI of the spine require prior auth?"*
 - *"Show me recent PA run outcomes"*
 
-The chatbot calls `POST /api/chat`, which searches ICD-10 codes, loads all patients/procedures/PA rules, fetches the last 50 run history records, and sends everything as context to **OpenRouter Model A**. Conversation history (last 6 turns) is maintained for follow-up questions.
+The chatbot calls `POST /api/chat`, which searches ICD-10 codes, loads all patients/procedures/PA rules, fetches the last 50 run history records, and sends everything as context to the **fast Foundry model** (with OpenRouter as automatic fallback). Conversation history (last 6 turns) is maintained for follow-up questions.
 
 ### Reference Data Tabs
 The left-side Reference panel has 4 tabs — each now includes an always-visible **info banner** explaining the data source and linking to official downloads:
@@ -140,6 +216,21 @@ py -3.11 -m venv venv
 ### 3. Configure
 Copy `.env.example` to `.env` and fill in your keys:
 ```
+# Provider selection
+LLM_PROVIDER=foundry            # "foundry" (Azure) or "openrouter"
+RETRIEVAL_PROVIDER=foundry_iq   # "foundry_iq" (Azure AI Search) or "qdrant"
+
+# Microsoft AI Foundry (Azure OpenAI v1)
+AZURE_OPENAI_ENDPOINT=https://<resource>.openai.azure.com/openai/v1
+AZURE_OPENAI_API_KEY=...
+AZURE_MODEL_FAST=gpt-4o-mini    # Foundry deployment name (Agents 1 & 2)
+AZURE_MODEL_REASONING=gpt-4o    # Foundry deployment name (Agents 3 & 4)
+
+# Microsoft Foundry IQ (Azure AI Search)
+AZURE_SEARCH_ENDPOINT=https://<search-service>.search.windows.net
+AZURE_SEARCH_KEY=...
+
+# Fallbacks
 OPENROUTER_API_KEY=sk-or-...
 OPENROUTER_MODEL_A=qwen/qwen3-coder:free
 OPENROUTER_MODEL_B=openrouter/owl-alpha
